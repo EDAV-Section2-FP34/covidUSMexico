@@ -1,7 +1,10 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
-date: "`r Sys.Date()`"
+title: "Covid US Mexico"
+author:
+  - Gilberto Garcia Perez (gg2831)
+  - Pablo Ulises Hernandez Garces (ph2632)
+  - Abel Perez Vargas (ap4015)
+date1: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
