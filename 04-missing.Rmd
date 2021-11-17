@@ -1,1 +1,3 @@
 # Missing values
+
+We do not have missing values in the data sets considered
