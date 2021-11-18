@@ -23,3 +23,12 @@ visualize_missings(inflation_us)
 ```
 
 Thus, we then proceed to showcase `visualize_missings` on the example dataset:
+
+````{r}
+
+visualize_missings(fivethirtyeight::steak_survey,T)
+
+visualize_missings(fivethirtyeight::steak_survey,F)
+
+
+```
