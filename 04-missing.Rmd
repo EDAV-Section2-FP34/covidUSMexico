@@ -1,3 +1,25 @@
 # Missing values
 
-We do not have missing values in the data sets considered
+
+```{r setup, include=FALSE}
+# this prevents package loading message from appearing in the rendered version of your problem set
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,
+                      echo = TRUE)
+```
+
+Our data consists of macroeconomic and financial information that don't contain missing values, mainly due to the structured nature of such information. To exemplify this, here we implement `visualize_missings` on the inflation data for Mexico from 2019 to 2021, and the US from 2012 to 2021 (monthly frequency).
+
+```{r}
+library(dplyr)
+library(tidyr)
+source("missing_visualization.R")
+
+inflation_mx <- read.csv("Data/Inflation_MX_2019_2021.csv", stringsAsFactors = F)
+inflation_us <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F)
+
+visualize_missings(inflation_mx)
+visualize_missings(inflation_us)
+
+```
+
+Thus, we then proceed to showcase `visualize_missings` on the example dataset:
