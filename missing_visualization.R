@@ -100,7 +100,12 @@ if(percent){
     xlab(NULL)+ ylab("% of rows missing")+
     ggtitle("Missing values pattern")
   
-  
+  if(all(num_rows$num_rows==0)){
+    # adjust scale when there is no NAs
+    p_rows<-p_rows+
+      ylim(0,100)
+    
+  }
   
 }else{
   p_rows<-num_rows%>%
