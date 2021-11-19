@@ -32,3 +32,8 @@ visualize_missings(fivethirtyeight::steak_survey,F)
 
 
 ```
+
+We can observe that rows without NAs are the most frequent, accounting for around 60% of them. `hhold` and `steak_prep` are the variables with the highest percentage of missing values, having around 20% each.
+
+Also interesting to note is the fact that when there are NAs in `educ`, there are also NAs in `region`, `age` and `female`, indicating that such variables come in batch.
+
