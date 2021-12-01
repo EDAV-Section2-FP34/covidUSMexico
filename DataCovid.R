@@ -24,4 +24,16 @@ compara<-usa_nas%>%
   left_join(mex_nas,by = "var",suffix = c("_usa","_mx"))
 
 # Variables of interest:
-variables<-read.csv("~/Data/COVID_vars_description.csv")
+variables<-read.csv("Data/COVID_vars_description.csv")
+
+# Filter data
+mex<- mex%>%
+  select(variables$Variable[variables$Usar==1])
+
+usa<- usa%>%
+  select(variables$Variable[variables$Usar==1])
+
+# Save data
+write.csv(mex,"Data/COVID_mex.csv",row.names = F)
+write.csv(usa,"Data/COVID_usa.csv",row.names = F)
+
