@@ -1,4 +1,4 @@
-Variable,Description,Tipo,Usar?
+Variable,Description,Tipo,Usar
 id,ID,Extra,0
 date,Date,Extra,1
 confirmed,Cumulative number of confirmed cases.,Epidemiological,1
