@@ -1,1 +1,86 @@
 # Data transformation
+
+We now proceed to transform the macroeconomic data for the two countries
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# GDP for Mexico. Monthly index for total, first, second and third economic activities
+GDP_MX <- read.csv("Data/IGAE_Brute.csv", stringsAsFactors = F)
+GDP_MX$Periodo <- 100*as.numeric(substring(GDP_MX$Periodo, 1, 4)) + 
+  as.numeric(substring(GDP_MX$Periodo, 6, 7))
+
+# Function to compute year percent changes
+#
+# Inputs: x, a numeric vector
+#
+# Output: y, a vector defined as NA for the first k elements, and x_t/x_t-k -1 for the
+#         rest
+pch <- function(x, k=12){
+  y <- x[-(1:k)]/x[-( (length(x)-k+1):length(x) )] - 1
+  return( c(rep(NA, k), 100*y) ) 
+}
+
+# Year percentage changes
+GDP_MX[, -1] <- sapply(GDP_MX[, -1], pch)
+GDP_MX <- GDP_MX %>% filter(!is.na(Total))
+
+# Saving
+GDP_MX %>% write.csv("Data/GDP_MX_Clean.csv", row.names = F)
+
+
+# GDP for US. Monthly level (total) 
+GDP_US <- read.csv("Data/GDP_US_Brute.csv", stringsAsFactors = F)
+aux <- substring(GDP_US$Month, 8,10)
+GDP_US$M <- ifelse(aux=="Jan", 1,
+                   ifelse(aux=="Feb", 2,
+                          ifelse(aux=="Mar", 3,
+                                 ifelse(aux=="Apr", 4,
+                                        ifelse(aux=="May", 5,
+                                               ifelse(aux=="Jun", 6,
+                                                      ifelse(aux=="Jul", 7,
+                                                             ifelse(aux=="Aug", 8,
+                                        ifelse(aux=="Sep", 9,
+                                               ifelse(aux=="Oct", 10,
+                                                      ifelse(aux=="Nov", 11, 12 )))))))) )  ) )
+GDP_US$OBS <- 100*as.numeric(substring(GDP_US$Month, 1, 4)) + GDP_US$M
+
+
+# Proportion of GDP of first, second and third economic activities, following Mexico's
+# definition in https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es
+#
+# Obtained from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind
+GDP_US_Activities <- read.csv("Data/Activity_Share_2.csv", stringsAsFactors = F)
+GDP_US_Activities <- GDP_US_Activities %>% pivot_longer(cols = !c(Activity, Sector),
+                                                        names_to="OBS", values_to="w")
+GDP_US_Activities$OBS <- as.numeric(gsub("X", "", GDP_US_Activities$OBS))
+GDP_US_Activities <- GDP_US_Activities %>% group_by(OBS, Sector) %>% 
+  summarise(w=sum(w)) %>% ungroup() %>% arrange(Sector, OBS)
+
+# GDP + Economic Activity
+GDP_US$Quarter <- ifelse(GDP_US$M / 3 <= 1, 1,
+                         ifelse(GDP_US$M / 3 <= 2, 4, 
+                                ifelse(GDP_US$M / 3 <= 3, 7, 10)  ) )
+GDP_US$OQuarter <- 100*as.numeric(substring(GDP_US$Month, 1, 4)) + GDP_US$Quarter
+GDP_US$OQuarter[GDP_US$OQuarter==202107] <- 202104
+w1 <- GDP_US_Activities %>% filter(Sector==1) %>% dplyr::select(!Sector)
+w2 <- GDP_US_Activities %>% filter(Sector==2) %>% dplyr::select(!Sector)
+w3 <- GDP_US_Activities %>% filter(Sector==3) %>% dplyr::select(!Sector)
+GDP_US <- GDP_US %>% filter(OBS>=201801) %>% left_join(w1, by=c('OQuarter'='OBS')) %>% 
+   left_join(w2, by=c('OQuarter'='OBS')) %>% left_join(w3, by=c('OQuarter'='OBS'))
+GDP_US <- GDP_US %>% mutate(Total=Monthly.Nominal.GDP.Index,
+                            Primarias=Monthly.Nominal.GDP.Index*w.x,
+                            Secundarias=Monthly.Nominal.GDP.Index*w.y,
+                            Terciarias=Monthly.Nominal.GDP.Index*w) %>% 
+  dplyr::select(OBS, Total, Primarias, Secundarias, Terciarias)
+
+
+# Year percentage changes
+GDP_US[, -1] <- sapply(GDP_US[, -1], pch)
+GDP_US <- GDP_US %>% filter(!is.na(Total))
+
+# Saving
+GDP_US %>% write.csv("Data/GDP_US_Clean.csv", row.names = F)
+
+```
