@@ -24,7 +24,7 @@ visualize_missings(inflation_us)
 
 Thus, we then proceed to showcase `visualize_missings` on the example dataset:
 
-````{r fig.width=15, fig.height=10, fig.align="center"}
+```{r fig.width=15, fig.height=10, fig.align="center"}
 
 visualize_missings(fivethirtyeight::steak_survey,T)
 
