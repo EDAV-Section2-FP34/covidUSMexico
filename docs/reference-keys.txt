@@ -1,5 +1,10 @@
 introduction
 data-sources
+health-data
+macroeconomic-data
+inflation
+economic-growth
+financial-data
 data-transformation
 missing-values
 results

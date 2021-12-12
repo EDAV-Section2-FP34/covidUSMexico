@@ -1,2 +1,78 @@
 # Data sources
 
+The data that we will use in the project can be categorized in three verticals:
+
+* **Health data**: Consisting of positive cases, vaccination and deaths.
+
+* **Macroeconomic data**: Consisting of economic growth by sector, and the inflation rate.
+
+* **Financial data**: Consisting of market indices.
+
+## Health data
+
+## Macroeconomic data
+
+### Inflation
+
+The data for inflation in Mexico was consulted from the Central Bank of Mexico's System of Economic Inormation (https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CP154&locale=es). The monthly Index for Consumer Prices was downloaded and inflation was computed in an auxiliar Excel sheet as the annual precentage change of the Index.
+
+The data of the Index of Cosumer Prices for the US was consulted in a similar manner from US Bureau of Labor Statistics (https://data.bls.gov/cgi-bin/surveymost) and inflation was computed in the same way.
+
+The data for Mexican inflation we consulted spans from January 2019 to October 2021, consisting of 34 observations:
+
+{r}
+str(inflation_mx)
+
+
+The data for US inflation spans from January 2012 to October 2021 (we will only focus on the intersection of time windows with Mexico), consisting of 118 observations:
+
+{r}
+str(inflation_us)
+
+
+### Economic Growth
+
+The economic growth for Mexico was consulted from https://www.inegi.org.mx/app/indicadores/?tm=0 , we consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.
+
+The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.
+
+{r}
+str(GDP_MX)
+
+
+For the US, we consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, we consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es . We then conulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
+
+The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico's data
+
+{r}
+str(GDP_US)
+
+
+## Financial data
+
+**Financial variables**. For this category of variables, team member Gilberto Garcia used the R package [tidyquant](https://cloud.r-project.org/web/packages/tidyquant/index.html), which connects to number of data sources including Yahoo Finance, Morningstar, Quandl, FRED Economic Data and more, to download the data in a format compatible with tidyverse. The code used to download this data can be found [here](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/Data//financial data downloader.R).
+
+In the case of the United States, given that there are plenty of well maintained financial data sources, we decided to pick the S&P 500 index as a representative proxy of the health of the American financial market, and also obtained data on the 11 sectors making up the index:
+
+1. Materials
+2. Health Care
+3. Consumer Staples
+4. Consumer Discretionary
+5. Energy
+6. Financials
+7. Industrials
+8. Technology
+9. Utilities
+10. Real State
+11. Communication Services
+
+In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.
+
+he API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, "adjusted"
+
+Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.
+
+
+
+
+

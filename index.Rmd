@@ -1,7 +1,7 @@
 --- 
 title: "Covid US Mexico"
 author:
-  - Garcia Perez (gg2831)
+  - Gilberto Garcia Perez (gg2831)
   - Pablo Ulises Hernandez Garces (ph2632)
   - Abel Perez Vargas (ap4015)
 date1: "`r Sys.Date()`"

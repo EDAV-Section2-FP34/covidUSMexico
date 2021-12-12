@@ -21,7 +21,7 @@
   
   
 
-<meta name="author" content="Garcia Perez (gg2831)" />
+<meta name="author" content="Gilberto Garcia Perez (gg2831)" />
 <meta name="author" content="Pablo Ulises Hernandez Garces (ph2632)" />
 <meta name="author" content="Abel Perez Vargas (ap4015)" />
 
@@ -139,7 +139,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#health-data"><i class="fa fa-check"></i><b>2.1</b> Health data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#macroeconomic-data"><i class="fa fa-check"></i><b>2.2</b> Macroeconomic data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#inflation"><i class="fa fa-check"></i><b>2.2.1</b> Inflation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.2</b> Economic Growth</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#financial-data"><i class="fa fa-check"></i><b>2.3</b> Financial data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -166,7 +175,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<p>The data that we will use in the project can be categorized in three verticals:</p>
+<ul>
+<li><p><strong>Health data</strong>: Consisting of positive cases, vaccination and deaths.</p></li>
+<li><p><strong>Macroeconomic data</strong>: Consisting of economic growth by sector, and the inflation rate.</p></li>
+<li><p><strong>Financial data</strong>: Consisting of market indices.</p></li>
+</ul>
+<div id="health-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Health data</h2>
+</div>
+<div id="macroeconomic-data" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Macroeconomic data</h2>
+<div id="inflation" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Inflation</h3>
+<p>The data for inflation in Mexico was consulted from the Central Bank of Mexico’s System of Economic Inormation (<a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&amp;idCuadro=CP154&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&amp;idCuadro=CP154&amp;locale=es</a>). The monthly Index for Consumer Prices was downloaded and inflation was computed in an auxiliar Excel sheet as the annual precentage change of the Index.</p>
+<p>The data of the Index of Cosumer Prices for the US was consulted in a similar manner from US Bureau of Labor Statistics (<a href="https://data.bls.gov/cgi-bin/surveymost" class="uri">https://data.bls.gov/cgi-bin/surveymost</a>) and inflation was computed in the same way.</p>
+<p>The data for Mexican inflation we consulted spans from January 2019 to October 2021, consisting of 34 observations:</p>
+<p>{r}
+str(inflation_mx)</p>
+<p>The data for US inflation spans from January 2012 to October 2021 (we will only focus on the intersection of time windows with Mexico), consisting of 118 observations:</p>
+<p>{r}
+str(inflation_us)</p>
+</div>
+<div id="economic-growth" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Economic Growth</h3>
+<p>The economic growth for Mexico was consulted from <a href="https://www.inegi.org.mx/app/indicadores/?tm=0" class="uri">https://www.inegi.org.mx/app/indicadores/?tm=0</a> , we consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.</p>
+<p>The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.</p>
+<p>{r}
+str(GDP_MX)</p>
+<p>For the US, we consulted the monthly GDP from <a href="https://ihsmarkit.com/products/us-monthly-gdp-index.html" class="uri">https://ihsmarkit.com/products/us-monthly-gdp-index.html</a> . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, we consulted Mexico’s aggregation of economic activities from <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es</a> . We then conulted the proportion of contribution of sub-economic activities in the US from <a href="https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind" class="uri">https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind</a> and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico’s definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).</p>
+<p>The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico’s data</p>
+<p>{r}
+str(GDP_US)</p>
+</div>
+</div>
+<div id="financial-data" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Financial data</h2>
+<p><strong>Financial variables</strong>. For this category of variables, team member Gilberto Garcia used the R package <a href="https://cloud.r-project.org/web/packages/tidyquant/index.html">tidyquant</a>, which connects to number of data sources including Yahoo Finance, Morningstar, Quandl, FRED Economic Data and more, to download the data in a format compatible with tidyverse. The code used to download this data can be found <a href="https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/Data//financial%20data%20downloader.R">here</a>.</p>
+<p>In the case of the United States, given that there are plenty of well maintained financial data sources, we decided to pick the S&amp;P 500 index as a representative proxy of the health of the American financial market, and also obtained data on the 11 sectors making up the index:</p>
+<ol style="list-style-type: decimal">
+<li>Materials</li>
+<li>Health Care</li>
+<li>Consumer Staples</li>
+<li>Consumer Discretionary</li>
+<li>Energy</li>
+<li>Financials</li>
+<li>Industrials</li>
+<li>Technology</li>
+<li>Utilities</li>
+<li>Real State</li>
+<li>Communication Services</li>
+</ol>
+<p>In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.</p>
+<p>he API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, “adjusted”</p>
+<p>Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.</p>
 
+</div>
 </div>
             </section>
 
