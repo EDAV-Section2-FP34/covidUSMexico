@@ -151,7 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#question-1.-sufrio-mas"><i class="fa fa-check"></i><b>5.1</b> Question 1. Sufrio mas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -176,22 +179,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
 <p>Our data consists of macroeconomic and financial information that don’t contain missing values, mainly due to the structured nature of such information. To exemplify this, here we implement <code>visualize_missings</code> on the inflation data for Mexico from 2019 to 2021, and the US from 2012 to 2021 (monthly frequency).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="missing-values.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="missing-values.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-3"><a href="missing-values.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;missing_visualization.R&quot;</span>)</span>
-<span id="cb1-4"><a href="missing-values.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="missing-values.html#cb1-5" aria-hidden="true" tabindex="-1"></a>inflation_mx <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_MX_2019_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
-<span id="cb1-6"><a href="missing-values.html#cb1-6" aria-hidden="true" tabindex="-1"></a>inflation_us <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_US_2012_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
-<span id="cb1-7"><a href="missing-values.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="missing-values.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="missing-values.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="missing-values.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="missing-values.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-3"><a href="missing-values.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;missing_visualization.R&quot;</span>)</span>
+<span id="cb5-4"><a href="missing-values.html#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="missing-values.html#cb5-5" aria-hidden="true" tabindex="-1"></a>inflation_mx <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_MX_2019_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb5-6"><a href="missing-values.html#cb5-6" aria-hidden="true" tabindex="-1"></a>inflation_us <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_US_2012_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb5-7"><a href="missing-values.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="missing-values.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <p>Thus, we then proceed to showcase <code>visualize_missings</code> on the example dataset:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="missing-values.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="1440" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="missing-values.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-2.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>We can observe that rows without NAs are the most frequent, accounting for around 60% of them. <code>hhold</code> and <code>steak_prep</code> are the variables with the highest percentage of missing values, having around 20% each.</p>
 <p>Also interesting to note is the fact that when there are NAs in <code>educ</code>, there are also NAs in <code>region</code>, <code>age</code> and <code>female</code>, indicating that such variables come in batch.</p>
 

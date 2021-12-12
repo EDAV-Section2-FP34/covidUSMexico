@@ -1,1 +1,26 @@
 # Results
+
+```{r}
+
+covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
+covid_US <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
+
+inflation_MX <- read.csv("Data/Inflation_MX_2019_2021.csv", stringsAsFactors = F)
+inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F)
+
+GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
+GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
+```
+
+
+
+
+## Question 1. Sufrio mas
+
+```{r}
+plot(ts( (covid_MX$confirmed[-1]-covid_MX$confirmed[-nrow(covid_MX)])/128900000 ))
+plot(ts( (covid_US$confirmed[-1]-covid_US$confirmed[-nrow(covid_US)])/329500000 ))
+
+plot(ts( (covid_MX$confirmed[-1]-covid_MX$confirmed[-nrow(covid_MX)])/128900000 ),
+     ts( (covid_US$confirmed[-1]-covid_US$confirmed[-nrow(covid_US)])/329500000 ))
+```

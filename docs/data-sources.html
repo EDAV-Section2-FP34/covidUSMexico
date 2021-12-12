@@ -151,7 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#question-1.-sufrio-mas"><i class="fa fa-check"></i><b>5.1</b> Question 1. Sufrio mas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -191,22 +194,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The data for inflation in Mexico was consulted from the Central Bank of Mexico’s System of Economic Inormation (<a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&amp;idCuadro=CP154&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&amp;idCuadro=CP154&amp;locale=es</a>). The monthly Index for Consumer Prices was downloaded and inflation was computed in an auxiliar Excel sheet as the annual precentage change of the Index.</p>
 <p>The data of the Index of Cosumer Prices for the US was consulted in a similar manner from US Bureau of Labor Statistics (<a href="https://data.bls.gov/cgi-bin/surveymost" class="uri">https://data.bls.gov/cgi-bin/surveymost</a>) and inflation was computed in the same way.</p>
 <p>The data for Mexican inflation we consulted spans from January 2019 to October 2021, consisting of 34 observations:</p>
-<p>{r}
-str(inflation_mx)</p>
+<pre><code>## &#39;data.frame&#39;:    34 obs. of  3 variables:
+##  $ Month           : chr  &quot;01/01/2019&quot; &quot;01/02/2019&quot; &quot;01/03/2019&quot; &quot;01/04/2019&quot; ...
+##  $ INPC            : num  103 103 103 104 103 ...
+##  $ Annual_Inflation: num  0.0437 0.0394 0.04 0.0441 0.0428 ...</code></pre>
 <p>The data for US inflation spans from January 2012 to October 2021 (we will only focus on the intersection of time windows with Mexico), consisting of 118 observations:</p>
-<p>{r}
-str(inflation_us)</p>
+<pre><code>## &#39;data.frame&#39;:    118 obs. of  4 variables:
+##  $ Year     : int  2012 2012 2012 2012 2012 2012 2012 2012 2012 2012 ...
+##  $ Month    : chr  &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; ...
+##  $ Price    : num  227 228 229 230 230 ...
+##  $ inflation: num  0.0293 0.0287 0.0265 0.023 0.017 ...</code></pre>
 </div>
 <div id="economic-growth" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Economic Growth</h3>
 <p>The economic growth for Mexico was consulted from <a href="https://www.inegi.org.mx/app/indicadores/?tm=0" class="uri">https://www.inegi.org.mx/app/indicadores/?tm=0</a> , we consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.</p>
 <p>The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.</p>
-<p>{r}
-str(GDP_MX)</p>
+<pre><code>## &#39;data.frame&#39;:    33 obs. of  5 variables:
+##  $ Periodo    : int  201901 201902 201903 201904 201905 201906 201907 201908 201909 201910 ...
+##  $ Total      : num  1.376 0.984 1.032 -1.554 -0.467 ...
+##  $ Primarias  : num  -0.506 5.894 1.829 -1.581 -1.57 ...
+##  $ Secundarias: num  -0.4008 -0.0918 -0.0231 -2.9824 -3.3431 ...
+##  $ Terciarias : num  2.387 1.276 1.517 -0.855 0.995 ...</code></pre>
 <p>For the US, we consulted the monthly GDP from <a href="https://ihsmarkit.com/products/us-monthly-gdp-index.html" class="uri">https://ihsmarkit.com/products/us-monthly-gdp-index.html</a> . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, we consulted Mexico’s aggregation of economic activities from <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es</a> . We then conulted the proportion of contribution of sub-economic activities in the US from <a href="https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind" class="uri">https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind</a> and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico’s definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).</p>
 <p>The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico’s data</p>
-<p>{r}
-str(GDP_US)</p>
+<pre><code>## &#39;data.frame&#39;:    33 obs. of  5 variables:
+##  $ OBS        : int  201901 201902 201903 201904 201905 201906 201907 201908 201909 201910 ...
+##  $ Total      : num  4.63 3.93 4.22 3.96 3.73 ...
+##  $ Primarias  : num  0.125 -0.552 -0.268 -1.672 -1.885 ...
+##  $ Secundarias: num  3.65 2.95 3.24 1.27 1.05 ...
+##  $ Terciarias : num  5.03 4.32 4.62 4.94 4.71 ...</code></pre>
 </div>
 </div>
 <div id="financial-data" class="section level2" number="2.3">
@@ -227,7 +243,7 @@ str(GDP_US)</p>
 <li>Communication Services</li>
 </ol>
 <p>In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.</p>
-<p>he API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, “adjusted”</p>
+<p>The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most</p>
 <p>Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.</p>
 
 </div>

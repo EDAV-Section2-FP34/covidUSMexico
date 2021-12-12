@@ -1,5 +1,17 @@
 # Data sources
 
+```{r}
+
+covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
+covid_US <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
+
+inflation_MX <- read.csv("Data/Inflation_MX_2019_2021.csv", stringsAsFactors = F)
+inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F)
+
+GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
+GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
+```
+
 The data that we will use in the project can be categorized in three verticals:
 
 * **Health data**: Consisting of positive cases, vaccination and deaths.
@@ -20,15 +32,15 @@ The data of the Index of Cosumer Prices for the US was consulted in a similar ma
 
 The data for Mexican inflation we consulted spans from January 2019 to October 2021, consisting of 34 observations:
 
-{r}
-str(inflation_mx)
-
+```{r}
+str(inflation_MX)
+```
 
 The data for US inflation spans from January 2012 to October 2021 (we will only focus on the intersection of time windows with Mexico), consisting of 118 observations:
 
-{r}
-str(inflation_us)
-
+```{r}
+str(inflation_US)
+```
 
 ### Economic Growth
 
@@ -36,17 +48,17 @@ The economic growth for Mexico was consulted from https://www.inegi.org.mx/app/i
 
 The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.
 
-{r}
+```{r}
 str(GDP_MX)
-
+```
 
 For the US, we consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, we consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es . We then conulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
 
 The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico's data
 
-{r}
+```{r}
 str(GDP_US)
-
+```
 
 ## Financial data
 
@@ -68,7 +80,7 @@ In the case of the United States, given that there are plenty of well maintained
 
 In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.
 
-he API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, "adjusted"
+The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most 
 
 Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.
 
