@@ -8,6 +8,10 @@ financial-data
 data-transformation
 missing-values
 results
-question-1.-sufrio-mas
+which-economy-suffered-the-most-during-the-pandemic
+health-vertical
+economic-vertical
+which-economy-had-an-stronger-relation
+which-economy-suffered-the-most-during-the-pandemic-1
 interactive-component
 conclusion

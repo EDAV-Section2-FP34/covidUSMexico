@@ -153,7 +153,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#question-1.-sufrio-mas"><i class="fa fa-check"></i><b>5.1</b> Question 1. Sufrio mas</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> 1. Which economy suffered the most during the pandemic?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-vertical"><i class="fa fa-check"></i><b>5.1.1</b> Health Vertical</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-vertical"><i class="fa fa-check"></i><b>5.1.2</b> Economic Vertical</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#which-economy-had-an-stronger-relation"><i class="fa fa-check"></i><b>5.2</b> 2. Which economy had an stronger relation?</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic-1"><i class="fa fa-check"></i><b>5.3</b> 3. Which economy suffered the most during the pandemic?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -178,9 +184,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
-<div id="question-1.-sufrio-mas" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Question 1. Sufrio mas</h2>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-15-2.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<div id="which-economy-suffered-the-most-during-the-pandemic" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> 1. Which economy suffered the most during the pandemic?</h2>
+<div id="health-vertical" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Health Vertical</h3>
+<p>Th first thing that comes to mind when thinking the pandemic’s effect in a particular country are daily infection cases. In order to compare such infections between countries, here we present a time-series plot to compare daily cases in each country. To make the comparison fair among the two countries, we present the cases per 100,000 population from 2020-01-25 to 2021-11-27. For visualization purposes, we compute the 7-day moving average of the series.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>We can observe that the US consistently reports more infection cases per capita than Mexico. US also shows evidence of more waves than Mexico: two little waves before 2020-08-11, in a period in which Mexico only experienced one, and another little wave directly after the big 2020 winter wave.</p>
+<p>Despite the previous, both countries follow a somewhat similar trend in the three big waves that we may categorize as the initial wave with peak around July 2020, the 2020 winter wave, and the most recent wave with peak around August 2021.</p>
+<p>We now focus on what can be considered as the most important severity indicator in the pandemic: number of deaths. In the same spirit of the previous comparison, here we present daily death per Daily deaths per 10 million population.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>We can appreciate an interesting behavior. Unlike the reported active cases, deaths per capita are similar between the two countries, whith one being on top of the other only momentarily. Here we can see with more influence the effect of the three waves in both countries. In the first one, US started having more deaths earlier than Mexico, but was surpased by it around early July 2020 until the second wave in winter 2020 increased the deaths with more acceleration in the US but it was followed shortly after by Mexico.</p>
+<p>Unlike the first to waves when the US preceded Mexico, in the third one it was Mexico the country that started suffering the death toll earlier, and it was followed shortly after by the US.</p>
+<p>Both countries suffered similar death tolls across the pandemic but the US had more reported infection cases. This may be explained by the US having better healthcare system and coverage, something that Mexico may lack making infections more likely to end in a regrettable death.</p>
+</div>
+<div id="economic-vertical" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Economic Vertical</h3>
+<p>Economic growth</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>We can see that prior to March 2020, both economies had a steady economic growth (in the case of Mexico, there was a recession actually), and when the governments decided to close interaction activities, the production in the US droped to negative levels and actually tied the decrease in Mexico, so we can say the US was the economy that reacted the most at <em>the beginning</em>, from 4.42 to -1.38 (Mexico moved from -0.107 to -2.17 in the same period).</p>
+<p>However, Mexico was the country that suffered the greatest downfall in production <em>across</em> the time window, with a huge -22.86% growth in March and a consistenly less growth in the following months except for May and June 2021, where the arithmetic effect of having a small production one year ago (first wave of the pandemic), increases the metric comparing.</p>
+<p>It is worth nothing that it was only in the first wave that both economies suffered such an unprecedented decrease, as the second and third waves discussed above did not have the same impact as the first. The is mainly explained due to the closing policies being more relaxed after the first tight lockdown.</p>
+</div>
+</div>
+<div id="which-economy-had-an-stronger-relation" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> 2. Which economy had an stronger relation?</h2>
+</div>
+<div id="which-economy-suffered-the-most-during-the-pandemic-1" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> 3. Which economy suffered the most during the pandemic?</h2>
 
 </div>
 </div>
