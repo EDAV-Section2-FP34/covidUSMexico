@@ -155,8 +155,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> 1. Which economy suffered the most during the pandemic?</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-vertical"><i class="fa fa-check"></i><b>5.1.1</b> Health Vertical</a></li>
-<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-vertical"><i class="fa fa-check"></i><b>5.1.2</b> Economic Vertical</a></li>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-level"><i class="fa fa-check"></i><b>5.1.1</b> Health Level</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-level"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Level</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#which-economy-had-an-stronger-relation"><i class="fa fa-check"></i><b>5.2</b> 2. Which economy had an stronger relation?</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic-1"><i class="fa fa-check"></i><b>5.3</b> 3. Which economy suffered the most during the pandemic?</a></li>
@@ -186,8 +186,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <div id="which-economy-suffered-the-most-during-the-pandemic" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> 1. Which economy suffered the most during the pandemic?</h2>
-<div id="health-vertical" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Health Vertical</h3>
+<div id="health-level" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Health Level</h3>
 <p>Th first thing that comes to mind when thinking the pandemic’s effect in a particular country are daily infection cases. In order to compare such infections between countries, here we present a time-series plot to compare daily cases in each country. To make the comparison fair among the two countries, we present the cases per 100,000 population from 2020-01-25 to 2021-11-27. For visualization purposes, we compute the 7-day moving average of the series.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>We can observe that the US consistently reports more infection cases per capita than Mexico. US also shows evidence of more waves than Mexico: two little waves before 2020-08-11, in a period in which Mexico only experienced one, and another little wave directly after the big 2020 winter wave.</p>
@@ -198,13 +198,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Unlike the first to waves when the US preceded Mexico, in the third one it was Mexico the country that started suffering the death toll earlier, and it was followed shortly after by the US.</p>
 <p>Both countries suffered similar death tolls across the pandemic but the US had more reported infection cases. This may be explained by the US having better healthcare system and coverage, something that Mexico may lack making infections more likely to end in a regrettable death.</p>
 </div>
-<div id="economic-vertical" class="section level3" number="5.1.2">
-<h3><span class="header-section-number">5.1.2</span> Economic Vertical</h3>
+<div id="economic-and-financial-level" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Economic and Financial Level</h3>
 <p>Economic growth</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>We can see that prior to March 2020, both economies had a steady economic growth (in the case of Mexico, there was a recession actually), and when the governments decided to close interaction activities, the production in the US droped to negative levels and actually tied the decrease in Mexico, so we can say the US was the economy that reacted the most at <em>the beginning</em>, from 4.42 to -1.38 (Mexico moved from -0.107 to -2.17 in the same period).</p>
 <p>However, Mexico was the country that suffered the greatest downfall in production <em>across</em> the time window, with a huge -22.86% growth in March and a consistenly less growth in the following months except for May and June 2021, where the arithmetic effect of having a small production one year ago (first wave of the pandemic), increases the metric comparing.</p>
 <p>It is worth nothing that it was only in the first wave that both economies suffered such an unprecedented decrease, as the second and third waves discussed above did not have the same impact as the first. The is mainly explained due to the closing policies being more relaxed after the first tight lockdown.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>We know will turn to analyzing the performance of the financial variables throughout the evolution of the pandemic. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>We can observe that energy was the sector most impacted by the pandemic as governments soon started imposing travel restrictions which greatly diminished the outlook for the price of oil in the following months. This expectation came to be realized as the enegy index is the only sector of the S&amp;P 500 that has not recovered its pre-pandemic level. In addition, we can also observe that the Technology sector not only has been the most resilient during the pandemic, but has had a strong rally during the pandemic, something that is explained by the strong demand of IT hardware and services as companies had to migrate to a remote work environment.</p>
+<p>Finally, something that come as a surprise to us was the relatively strong performance of the sector of Consumer Discretionary products. This sector tracks companies delivering goods and services that are considered non-essential by consumers, but desirable if their available income is sufficient to purchase them. Representative companies within this sector are Amazon, Home Depot, McDonald’s, Nike and Lowe’s. Although at first glance one would have thought that people would prioritize savings over non-essential consumption, the massive financial aid programs that went into effect seem to have supported discretionary spending by American households.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 </div>
 <div id="which-economy-had-an-stronger-relation" class="section level2" number="5.2">

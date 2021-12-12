@@ -5,6 +5,8 @@ library(forecast)
 library(dplyr)
 library(ggplot2)
 library(zoo)
+library(RColorBrewer)
+library(tidyverse)
 
 covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
 covid_US <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
@@ -14,6 +16,8 @@ inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F
 
 GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
 GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
+
+financials <- read_csv('Data/Financial data.csv')
 ```
 
 
@@ -21,7 +25,7 @@ GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
 
 ## 1. Which economy suffered the most during the pandemic?
 
-### Health Vertical
+### Health Level
 
 Th first thing that comes to mind when thinking the pandemic's effect in a particular country are daily infection cases. In order to compare such infections between countries, here we present a time-series plot to compare daily cases in each country. To make the comparison fair among the two countries, we present the cases per 100,000 population from 2020-01-25 to 2021-11-27. For visualization purposes, we compute the 7-day moving average of the series.
 
@@ -105,7 +109,7 @@ Unlike the first to waves when the US preceded Mexico, in the third one it was M
 
 Both countries suffered similar death tolls across the pandemic but the US had more reported infection cases. This may be explained by the US having better healthcare system and coverage, something that Mexico may lack making infections more likely to end in a regrettable death.
 
-### Economic Vertical
+### Economic and Financial Level
 
 Economic growth
 
@@ -140,6 +144,80 @@ aux %>% pivot_longer(Total:Terciarias, names_to="Diff_growth") %>% ggplot(aes(x=
 ggtitle('Fig. 4 Boxplots of the difference in growth during pandemic') +
 labs(x = 'Growth US - Growth Mexico', y = 'Economic Activity')
 ```
+
+We know will turn to analyzing the performance of the financial variables throughout the evolution of the pandemic. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.
+
+```{r}
+monthly_fin <- financials %>% 
+  mutate(mon_yr = format(financials$Date, "%Y-%m")) %>% 
+  drop_na() %>% 
+  group_by(mon_yr) %>% 
+  filter(Date == max(Date))
+
+# Drop variables that do not appear on the heatmap
+drop <- c('Date', 'S&P500', 'MexicanStocksIndex', 'USDMXN')
+monthly_fin <- monthly_fin[,!(names(monthly_fin) %in% drop)] %>% 
+  select(mon_yr, everything())
+
+# Creation of indices
+col_names <- colnames(monthly_fin)
+for (sector in col_names[-1])
+{
+  base_value <- as.numeric(monthly_fin[monthly_fin$mon_yr == '2019-12', sector])
+  monthly_fin[sector] <- 100*monthly_fin[sector]/base_value
+}
+
+# Dummy data
+x <- monthly_fin$mon_yr
+y <- col_names[-1]
+data <- expand.grid(X=x, Y=y)
+data$Z <- c(as.matrix(monthly_fin[,-1]))
+
+# Give extreme colors
+bound = max(abs(c(max(data$Z) - 100, min(data$Z) - 100)))
+ggplot(data, aes(X, Y, fill= Z)) + 
+  geom_tile() + 
+  scale_fill_distiller(palette = "RdYlGn",
+                       direction = 1,
+                       limits = c(100 - bound, 100 + bound),
+                       name = "Index value") +
+  labs(title="Heatmap of sector indices of S&500 (base: Dec-2019 = 100)",
+       x ="Month",
+       y = "Sector") + 
+  theme(axis.text.x = element_text(vjust = 0.5)) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+We can observe that energy was the sector most impacted by the pandemic as governments soon started imposing travel restrictions which greatly diminished the outlook for the price of oil in the following months. This expectation came to be realized as the enegy index is the only sector of the S&P 500 that has not recovered its pre-pandemic level. In addition, we can also observe that the Technology sector not only has been the most resilient during the pandemic, but has had a strong rally during the pandemic, something that is explained by the strong demand of IT hardware and services as companies had to migrate to a remote work environment.
+
+Finally, something that come as a surprise to us was the relatively strong performance of the sector of Consumer Discretionary products. This sector tracks companies delivering goods and services that are considered non-essential by consumers, but desirable if their available income is sufficient to purchase them. Representative companies within this sector are Amazon, Home Depot, McDonald's, Nike and Lowe's. Although at first glance one would have thought that people would prioritize savings over non-essential consumption, the massive financial aid programs that went into effect seem to have supported discretionary spending by American households.
+
+```{r}
+data_matrix <- 100*(as.matrix(monthly_fin[-1,-1]/monthly_fin[-nrow(monthly_fin),-1]) - 1)
+
+# Dummy data
+x <- monthly_fin$mon_yr[-1]
+y <- col_names[-1]
+data <- expand.grid(X=x, Y=y)
+data$Z <- c(t(data_matrix))
+
+# Give extreme colors
+bound = max(abs(c(max(data$Z), min(data$Z))))
+ggplot(data, aes(X, Y, fill= Z)) + 
+  geom_tile() + 
+  scale_fill_distiller(palette = "RdYlGn",
+                       direction = 1,
+                       limits = c(-bound, bound),
+                       name = "Monthly return") +
+  labs(title="Heatmap of monthly returns of sectors of S&500 (%)",
+       x ="Month",
+       y = "Sector") + 
+  theme(axis.text.x = element_text(vjust = 0.5)) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
 
 ## 2. Which economy had an stronger relation?
 

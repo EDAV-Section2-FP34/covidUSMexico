@@ -9,8 +9,8 @@ data-transformation
 missing-values
 results
 which-economy-suffered-the-most-during-the-pandemic
-health-vertical
-economic-vertical
+health-level
+economic-and-financial-level
 which-economy-had-an-stronger-relation
 which-economy-suffered-the-most-during-the-pandemic-1
 interactive-component
