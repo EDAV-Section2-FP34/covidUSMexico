@@ -144,8 +144,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#health-data"><i class="fa fa-check"></i><b>2.1</b> Health data</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#macroeconomic-data"><i class="fa fa-check"></i><b>2.2</b> Macroeconomic data</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#inflation"><i class="fa fa-check"></i><b>2.2.1</b> Inflation</a></li>
-<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.2</b> Economic Growth</a></li>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.1</b> Economic Growth</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#inflation"><i class="fa fa-check"></i><b>2.2.2</b> Inflation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#financial-data"><i class="fa fa-check"></i><b>2.3</b> Financial data</a></li>
 </ul></li>
@@ -153,13 +153,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> 1. Which economy suffered the most during the pandemic?</a>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> Which economy suffered the most during the pandemic?</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-level"><i class="fa fa-check"></i><b>5.1.1</b> Health Level</a></li>
-<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-level"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Level</a></li>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-vertical"><i class="fa fa-check"></i><b>5.1.1</b> Health Vertical</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-vertical"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Vertical</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#which-economy-had-an-stronger-relation"><i class="fa fa-check"></i><b>5.2</b> 2. Which economy had an stronger relation?</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic-1"><i class="fa fa-check"></i><b>5.3</b> 3. Which economy suffered the most during the pandemic?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#relation-between-public-health-and-economic-conditions-in-each-country"><i class="fa fa-check"></i><b>5.2</b> Relation between public health and economic conditions in each country</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-better-policies"><i class="fa fa-check"></i><b>5.3</b> Which economy better policies?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -193,14 +193,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="missing-values.html#cb5-6" aria-hidden="true" tabindex="-1"></a>inflation_us <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_US_2012_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb5-7"><a href="missing-values.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="missing-values.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
 <p>Thus, we then proceed to showcase <code>visualize_missings</code> on the example dataset:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-2.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>We can observe that rows without NAs are the most frequent, accounting for around 60% of them. <code>hhold</code> and <code>steak_prep</code> are the variables with the highest percentage of missing values, having around 20% each.</p>
 <p>Also interesting to note is the fact that when there are NAs in <code>educ</code>, there are also NAs in <code>region</code>, <code>age</code> and <code>female</code>, indicating that such variables come in batch.</p>
 
@@ -265,6 +265,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

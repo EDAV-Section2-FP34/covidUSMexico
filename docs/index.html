@@ -144,8 +144,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#health-data"><i class="fa fa-check"></i><b>2.1</b> Health data</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#macroeconomic-data"><i class="fa fa-check"></i><b>2.2</b> Macroeconomic data</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#inflation"><i class="fa fa-check"></i><b>2.2.1</b> Inflation</a></li>
-<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.2</b> Economic Growth</a></li>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.1</b> Economic Growth</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#inflation"><i class="fa fa-check"></i><b>2.2.2</b> Inflation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#financial-data"><i class="fa fa-check"></i><b>2.3</b> Financial data</a></li>
 </ul></li>
@@ -153,13 +153,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> 1. Which economy suffered the most during the pandemic?</a>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic"><i class="fa fa-check"></i><b>5.1</b> Which economy suffered the most during the pandemic?</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-level"><i class="fa fa-check"></i><b>5.1.1</b> Health Level</a></li>
-<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-level"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Level</a></li>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#health-vertical"><i class="fa fa-check"></i><b>5.1.1</b> Health Vertical</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-vertical"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Vertical</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#which-economy-had-an-stronger-relation"><i class="fa fa-check"></i><b>5.2</b> 2. Which economy had an stronger relation?</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-suffered-the-most-during-the-pandemic-1"><i class="fa fa-check"></i><b>5.3</b> 3. Which economy suffered the most during the pandemic?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#relation-between-public-health-and-economic-conditions-in-each-country"><i class="fa fa-check"></i><b>5.2</b> Relation between public health and economic conditions in each country</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-better-policies"><i class="fa fa-check"></i><b>5.3</b> Which economy better policies?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -263,6 +263,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

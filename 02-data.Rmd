@@ -14,9 +14,9 @@ GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
 
 The data that we will use in the project can be categorized in three verticals:
 
-* **Health data**: Consisting of positive cases, vaccination and deaths.
+* **Health data**: Consisting of positive cases, deaths, vaccination and policy implementation.
 
-* **Macroeconomic data**: Consisting of economic growth by sector, and the inflation rate.
+* **Macroeconomic data**: Consisting of economic growth by sector and the inflation rate.
 
 * **Financial data**: Consisting of market indices.
 
@@ -24,9 +24,27 @@ The data that we will use in the project can be categorized in three verticals:
 
 ## Macroeconomic data
 
+### Economic Growth
+
+Team member Abel Perez consulted economic growth data for Mexico from https://www.inegi.org.mx/app/indicadores/?tm=0 , in specific, he consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.
+
+The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.
+
+```{r}
+str(GDP_MX)
+```
+
+For the US, he consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, he consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es . he then consulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
+
+The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico's data
+
+```{r}
+str(GDP_US)
+```
+
 ### Inflation
 
-The data for inflation in Mexico was consulted from the Central Bank of Mexico's System of Economic Inormation (https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CP154&locale=es). The monthly Index for Consumer Prices was downloaded and inflation was computed in an auxiliar Excel sheet as the annual precentage change of the Index.
+Team member Abel Perez consulted the data for inflation in Mexico from the Central Bank of Mexico's System of Economic Inormation (https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CP154&locale=es). The monthly Index for Consumer Prices was downloaded and inflation was computed in an auxiliar Excel sheet as the annual precentage change of the Index.
 
 The data of the Index of Cosumer Prices for the US was consulted in a similar manner from US Bureau of Labor Statistics (https://data.bls.gov/cgi-bin/surveymost) and inflation was computed in the same way.
 
@@ -42,27 +60,10 @@ The data for US inflation spans from January 2012 to October 2021 (we will only 
 str(inflation_US)
 ```
 
-### Economic Growth
-
-The economic growth for Mexico was consulted from https://www.inegi.org.mx/app/indicadores/?tm=0 , we consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.
-
-The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.
-
-```{r}
-str(GDP_MX)
-```
-
-For the US, we consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, we consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es . We then conulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
-
-The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico's data
-
-```{r}
-str(GDP_US)
-```
 
 ## Financial data
 
-**Financial variables**. For this category of variables, team member Gilberto Garcia used the R package [tidyquant](https://cloud.r-project.org/web/packages/tidyquant/index.html), which connects to number of data sources including Yahoo Finance, Morningstar, Quandl, FRED Economic Data and more, to download the data in a format compatible with tidyverse. The code used to download this data can be found [here](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/Data//financial data downloader.R).
+For this category of variables, team member Gilberto Garcia used the R package [tidyquant](https://cloud.r-project.org/web/packages/tidyquant/index.html), which connects to number of data sources including Yahoo Finance, Morningstar, Quandl, FRED Economic Data and more, to download the data in a format compatible with tidyverse. The code used to download this data can be found [here](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/Data//financial data downloader.R).
 
 In the case of the United States, given that there are plenty of well maintained financial data sources, we decided to pick the S&P 500 index as a representative proxy of the health of the American financial market, and also obtained data on the 11 sectors making up the index:
 

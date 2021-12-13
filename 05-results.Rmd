@@ -3,10 +3,10 @@
 ```{r}
 library(forecast)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(zoo)
-library(RColorBrewer)
-library(tidyverse)
+# render_book()
 
 covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
 covid_US <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
@@ -16,25 +16,22 @@ inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F
 
 GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
 GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
-
-financials <- read_csv('Data/Financial data.csv')
 ```
 
 
 
+## Which economy suffered the most during the pandemic?
 
-## 1. Which economy suffered the most during the pandemic?
-
-### Health Level
+### Health Vertical
 
 Th first thing that comes to mind when thinking the pandemic's effect in a particular country are daily infection cases. In order to compare such infections between countries, here we present a time-series plot to compare daily cases in each country. To make the comparison fair among the two countries, we present the cases per 100,000 population from 2020-01-25 to 2021-11-27. For visualization purposes, we compute the 7-day moving average of the series.
 
 ```{r}
 
-aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, confirmed),
+aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, confirmed, population),
                         by=c("date"="date"))
-aux$Daily_Cases_MX <- c(aux$confirmed.x[1], (aux$confirmed.x[-1]-aux$confirmed.x[-nrow(aux)])/128900000)
-aux$Daily_Cases_US <- c(aux$confirmed.y[1], (aux$confirmed.y[-1]-aux$confirmed.y[-nrow(aux)])/329500000)
+aux$Daily_Cases_MX <- c(aux$confirmed.x[1], (aux$confirmed.x[-1]-aux$confirmed.x[-nrow(aux)])) / aux$population.x
+aux$Daily_Cases_US <- c(aux$confirmed.y[1], (aux$confirmed.y[-1]-aux$confirmed.y[-nrow(aux)])) / aux$population.y
 
 # Simple exponential smoothing function
 ES <- function(x, l){
@@ -54,7 +51,6 @@ aux <- aux %>%
   mutate(Cases_MX = zoo::rollmean(Daily_Cases_MX, k = 7, fill = NA),
          Cases_US = zoo::rollmean(Daily_Cases_US, k = 7, fill = NA) ) %>% 
   filter(!is.na(Cases_US))
-aux <- aux[-1, ]
 
 #aux$Cases_MX <- ES(aux$Daily_Cases_MX, 0.2)
 #aux$Cases_US <- ES(aux$Daily_Cases_US, 0.2)
@@ -63,7 +59,9 @@ aux <- aux[-1, ]
 
 ts.plot(ts( 100000*aux$Cases_MX ),
      ts( 100000*aux$Cases_US ), col=c("darkgreen", "blue"), lty=c(1,2), lwd=2,
-     xlab="", gpars=list(xaxt='n'), main="Fig. 1 Smoothed daily new cases per 100,000 population" )
+     xlab="Day", gpars=list(xaxt='n'), main="Fig. 1 Smoothed daily new cases per 100,000 population" )
+indx <- c(1, 200*(1:3))
+axis(side=1, at=indx, labels=aux$date[indx], cex=0.7)
 legend("topleft", legend=c("MX", "US"), lty=c(1, 2), lwd=2, col=c("darkgreen", "blue"))
 #abline(v=c(140, 210, 270, 410, 500, 550), col="gray", lty=2)
 
@@ -79,10 +77,10 @@ We now focus on what can be considered as the most important severity indicator 
 
 ```{r}
 
-aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, deaths),
+aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, deaths, population),
                         by=c("date"="date"))
-aux$Daily_Cases_MX <- c(aux$deaths.x[1], (aux$deaths.x[-1]-aux$deaths.x[-nrow(aux)])/128900000)
-aux$Daily_Cases_US <- c(aux$deaths.y[1], (aux$deaths.y[-1]-aux$deaths.y[-nrow(aux)])/329500000)
+aux$Daily_Cases_MX <- c(aux$deaths.x[1], (aux$deaths.x[-1]-aux$deaths.x[-nrow(aux)])) / aux$population.x
+aux$Daily_Cases_US <- c(aux$deaths.y[1], (aux$deaths.y[-1]-aux$deaths.y[-nrow(aux)])) / aux$population.y
 
 #aux <- aux %>% 
 #  mutate(Cases_MX = zoo::rollmean(Daily_Cases_MX, k = 7, fill = NA),
@@ -96,7 +94,7 @@ aux <- aux %>% filter(!is.na(Cases_US))
 
 ts.plot(ts( 10000000*aux$Cases_MX ),
      ts( 10000000*aux$Cases_US ), col=c("darkgreen", "blue"), lty=c(1,2), lwd=2,
-     xlab="", gpars=list(xaxt='n'), main="Fig. 2 Smoothed daily deaths per 10,000,000 population" )
+     xlab="Day", gpars=list(xaxt='n'), main="Fig. 2 Smoothed daily deaths per 10,000,000 population" )
 indx <- c(1, 200*(1:3))
 axis(side=1, at=indx, labels=aux$date[indx], cex=0.7)
 legend("topleft", legend=c("MX", "US"), lty=c(1, 2), lwd=2, col=c("darkgreen", "blue"))
@@ -109,15 +107,14 @@ Unlike the first to waves when the US preceded Mexico, in the third one it was M
 
 Both countries suffered similar death tolls across the pandemic but the US had more reported infection cases. This may be explained by the US having better healthcare system and coverage, something that Mexico may lack making infections more likely to end in a regrettable death.
 
-### Economic and Financial Level
+### Economic and Financial Vertical
 
-Economic growth
+We first turn our attention to annual economic growth of the two countries. In Figure 3 we display the monthly series of annual percentage change of GDP for Mexico and the US from January 2020 to September 2021. 
 
 ```{r}
-aux <- 
 ts.plot(ts( GDP_MX$Total[13:nrow(GDP_MX)] ),
-     ts( GDP_US$Total[13:nrow(GDP_US)] ), col=c("darkgreen", "blue"), lty=c(1,2), lwd=2,
-     xlab="", gpars=list(xaxt='n'), main="Fig. 3 Economic growth" )
+     ts( GDP_US$Total[13:nrow(GDP_US)] ), col=c("darkgreen", "blue"), lty=c(1,2), lwd=2, ylab="%",
+     xlab="Month", gpars=list(xaxt='n'), main="Fig. 3 Economic growth" )
 indx <- c(1, 7*(1:3))
 axis(side=1, at=indx, labels=GDP_MX$Periodo[13:nrow(GDP_MX)][indx], cex=0.8)
 legend("top", legend=c("MX", "US"), lty=c(1, 2), lwd=2, col=c("darkgreen", "blue"))
@@ -126,11 +123,13 @@ abline(v=3, col="red", lwd=2, lty=3)
 
 ```
 
-We can see that prior to March 2020, both economies had a steady economic growth (in the case of Mexico, there was a recession actually), and when the governments decided to close interaction activities, the production in the US droped to negative levels and actually tied the decrease in Mexico, so we can say the US was the economy that reacted the most at *the beginning*, from 4.42 to -1.38 (Mexico moved from -0.107 to -2.17 in the same period).
+We can see that prior to March 2020, both economies had a steady economic growth (in the case of Mexico, there was a recession actually), and when the governments decided to close interaction activities, the production in the US droped to negative levels and actually tied the decrease in Mexico, so we can say the US was the economy that reacted the most at *the beginning*, from 4.42% to -1.38% (Mexico moved from -0.107% to -2.17% in the same period).
 
-However, Mexico was the country that suffered the greatest downfall in production *across* the time window, with a huge -22.86% growth in March and a consistenly less growth in the following months except for May and June 2021, where the arithmetic effect of having a small production one year ago (first wave of the pandemic), increases the metric comparing.
+However, Mexico was the country that suffered the greatest downfall in production *across* the time window, with a huge -22.86% growth in March and a consistently less growth in the following months, except for May and June 2021, where the arithmetic effect of having a small production one year ago (first wave of the pandemic), will make the high growth seem as product of an increase of the current production when it is actually due to a devastating decrease of the past one.
 
-It is worth nothing that it was only in the first wave that both economies suffered such an unprecedented decrease, as the second and third waves discussed above did not have the same impact as the first. The is mainly explained due to the closing policies being more relaxed after the first tight lockdown.
+It is worth nothing that it was only in the begining of the pandemic that both economies suffered such an unprecedented decrease, as the second and third waves around winter 2020 and August 2021 (see Fig. 2) did not have the same impact as the first. The is may be explained due to the closing policies being more relaxed after the first tight lockdown, something we will explore in section **5.3**.
+
+We now turn attention on the impact f the pandemic at sublevels of economic activities. To analyze with more detail the difference in impact between countries, we compute the *difference in growth*, that is $\Delta US_k - \Delta  MX_k$ where $\Delta US_k$ represents the annual growth in the US for economic activity $k \in$ (primary, secondary, tertiary). 
 
 ```{r}
 aux <- GDP_MX
@@ -139,13 +138,56 @@ aux$Primarias <- GDP_US$Primarias - GDP_MX$Primarias
 aux$Secundarias <- GDP_US$Secundarias - GDP_MX$Secundarias
 aux$Terciarias <- GDP_US$Terciarias - GDP_MX$Terciarias
 aux <- aux[13:nrow(aux), ]
+colnames(aux) <- c("Month", "Total", "Primary", "Secondary", "Tertiary")
 
-aux %>% pivot_longer(Total:Terciarias, names_to="Diff_growth") %>% ggplot(aes(x=value, y=reorder(Diff_growth  , value, FUN = median) )) + geom_boxplot() + 
-ggtitle('Fig. 4 Boxplots of the difference in growth during pandemic') +
-labs(x = 'Growth US - Growth Mexico', y = 'Economic Activity')
+aux %>% pivot_longer(Total:Tertiary, names_to="Diff_growth") %>% ggplot(aes(x=value, y=reorder(Diff_growth  , value, FUN = median) )) + geom_boxplot() + 
+ggtitle('Fig. 4 Difference in growth by economic activity') +
+labs(x = 'Growth US - Growth Mexico (percentage points)', y = 'Economic Activity')
 ```
 
-We know will turn to analyzing the performance of the financial variables throughout the evolution of the pandemic. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.
+We see in all cases the difference in growth has median greater than 0, which tells us about a greater recession in Mexico than in US. Tertiary activities show the greatest difference with a median difference of more than 5 percentage points, which indicates that the US has greater resilience in all sectors, but specially in service activities.
+
+It is worth noting that primary and secondary activities have the first quartile less than 0, indicating that around 25% of the times, Mexico showed a higher economic growth during the pandemic. This speaks of an economy that focuses more in extraction of raw materials and manufacturing than in services, when compared to US' standards.
+
+We now turn our attention to inflation and its relation to economic activity, to see the effects of the pandemic in the prices of each economy from January 2020 to September 2021.
+
+```{r}
+aux <- inflation_MX
+aux <- aux[13:nrow(aux), ]
+aux$Periodo <- 100*as.numeric(substring(aux$Month, 7, 10)) + as.numeric(substring(aux$Month, 4, 5))
+aux$Annual_Inflation <- 100*aux$Annual_Inflation
+aux$Annual_Inflation_US <- 100*inflation_US$inflation[(nrow(inflation_US)-21):nrow(inflation_US)]
+aux <- aux %>% left_join(dplyr::select(GDP_MX, Periodo, Total ) ) %>% 
+  left_join( dplyr::select(GDP_US, OBS, Total ), by=c("Periodo"="OBS") )
+aux <- aux %>% filter(!is.na(Total.x))
+
+scale_value = max(aux$Annual_Inflation, na.rm = TRUE)/ max(aux$Total.x, na.rm=TRUE) 
+m <- min(aux$Total.x, na.rm=T)
+
+aux %>% mutate(Month=as.Date(Month, format="%d/%m/%Y"),
+               Total.x = Total.x,
+               Total.y = Total.y ) %>%   
+  ggplot() + 
+  geom_line( aes(x= Month, y= Annual_Inflation, colour='dg'), size=1) +
+  geom_line(aes(x= Month, y= Annual_Inflation_US, colour = 'b'), size=1) +
+  geom_line(aes(x= Month, y = Total.x*scale_value, colour = 'dg'), 
+            linetype = "dashed", size=1) + 
+  geom_line(aes(x= Month, y = Total.y*scale_value, colour = 'b'), 
+            linetype = "dashed", size=1) +
+  scale_colour_manual(name = 'Country', 
+         values =c(dg='darkgreen',b='blue'), labels = c('US','Mexico')) +
+  scale_y_continuous(sec.axis = sec_axis(~./scale_value, name = 'Economic Growth (%, Dashed Lines)')) + ylab("Inflation (%, Solid Lines)") +
+  ggtitle('Fig. 5 Inflation Rate and Economic Growth')
+  
+```
+
+We can see that the initial lockdown decreased both the economic growth and inflation rate in the two countries, this is a natural consequence of less activity implying less demand for products and services and as such, a decrease in prices and in inflation.
+
+However, as the economic growth (dashed lines) started increasing, product of the reopening of both economies around June 2020, the inflation increased to levels higher than before the pandemic, and even when the economic activity started decreasing after June 2021 towards its pre-pandemic state, the inflation still seems to be in a positive trend.
+
+In this case again, Mexico is the country experiencing harder consequences as inflation is consistently higher than in the US, and the last observed months (August to September 2021), show a greater slope than the US.
+
+We now will turn to analyzing the performance of the financial variables throughout the evolution of the pandemic. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.
 
 ```{r}
 monthly_fin <- financials %>% 
@@ -219,6 +261,54 @@ ggplot(data, aes(X, Y, fill= Z)) +
 ```
 
 
-## 2. Which economy had an stronger relation?
+## Relation between public health and economic conditions in each country
 
-## 3. Which economy suffered the most during the pandemic?
+We first focus on the impact the pandemic had in the economic activity of the two countries. For this, we display scatterplots of economic growth vs monthly deaths for the two countries, and estimate a regression line in order to asses the level of association between what can be seen as the hardest severity indicator of the pandemic, and the overall economic outlook of a country. We also print the estimated $\beta_1$ coefficient that relates the death counts to the economic growth.
+
+
+```{r}
+aux <- covid_MX %>% dplyr::select(date, confirmed, deaths, population) %>%
+  inner_join( dplyr::select(covid_US, date, confirmed, deaths, population),
+              by=c("date"="date"))
+aux$Periodo <- 100*as.numeric(substring(aux$date, 1, 4)) + as.numeric(substring(aux$date, 6, 7))
+
+aux$confirmed_MX <- c(aux$confirmed.x[1], (aux$confirmed.x[-1]-aux$confirmed.x[-nrow(aux)]))
+aux$confirmed_US <- c(aux$confirmed.y[1], (aux$confirmed.y[-1]-aux$confirmed.y[-nrow(aux)]))
+aux$death_MX <- c(aux$deaths.x[1],
+                  (aux$deaths.x[-1]-aux$deaths.x[-nrow(aux)]))
+aux$death_US <- c(aux$deaths.y[1],
+                  (aux$deaths.y[-1]-aux$deaths.y[-nrow(aux)]))
+
+aux <- aux %>% group_by(Periodo) %>%
+  summarise(confirmed_MX = sum(confirmed_MX, na.rm=T),
+            confirmed_US = sum(confirmed_US, na.rm=T),
+            death_MX = sum(death_MX),
+            death_US = sum(death_US) ) %>%
+  filter(!is.na(confirmed_US)) %>% 
+  left_join( dplyr::select(GDP_MX, Periodo, Total), by=c("Periodo"="Periodo") ) %>% 
+  left_join( dplyr::select(GDP_US, OBS, Total), by=c("Periodo"="OBS") )
+
+
+
+
+aux %>% 
+  ggplot(aes(x=death_MX, y=Total.x)) + geom_smooth(method='lm')+
+    geom_point(alpha=0.3, color='blue', size=1.8)+
+  annotate('text', x=30000, y=25,
+           label=paste("B1 =", trunc(1000000*coef(lm(Total.x~death_MX, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 6 Health - Economic Association: Mexico")
+
+aux %>% 
+  ggplot(aes(x=death_US, y=Total.y)) + geom_smooth(method='lm')+
+    geom_point(alpha=0.3, color='blue', size=1.8)+
+  annotate('text', x=80000, y=20,
+           label=paste("B1 =", trunc(1000000*coef(lm(Total.y~death_US, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 7 Health - Economic Association: US")
+
+# Confirmed no jala
+
+
+```
+
+We can see that the fitted line in both cases shows a negative trend, indicating that higher the deaths, lower the economic growth. The estimated $\beta_1$ coefficient for mexico is greater in absolute value, pointing out that for this country the economic fallout was worse.
+
+## Which economy better policies?
+
