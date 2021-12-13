@@ -1,3 +1,4 @@
 # Interactive component
 
+<iframe src="docs/Interactive plot v3.html" width="700" height="650"></iframe>
 

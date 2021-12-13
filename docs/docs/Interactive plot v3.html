@@ -1,0 +1,341 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<title> Interactive Visualization </title>
+  
+<h1>Comparative plots</h1>
+  
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- Add 2 buttons -->
+<button onclick="b1()">Mexico</button>
+<button onclick="b2()">USA</button>
+<button onclick="b3()">Comparative</button>
+
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+<body>
+  
+  Instructions: 
+  <ol>
+  <li>The user can select the data set to be plot by clicking in the corresponding buttom.</li>
+  <li>  It is possible to make a zoom in the plotted area with the mouse (click, hold and release). Double-click to return to the complete graph.
+  </li>
+  <li> It is possible to display the value of a data point by using the pointer.</li>
+</ol>
+  
+  
+ 
+    
+  
+  
+</body>
+
+<script>
+
+
+ 
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 00, bottom: 30, left: 60},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+          
+
+// Add X axis --> it is a date format
+    var x = d3.scaleTime()
+      .range([ 0, width ]);
+      
+    var xAxis = d3.axisBottom(x)
+    .scale(x)//new
+    svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .attr("class","myXaxis")
+      
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .range([ height, 0 ]);
+    var yAxis =d3.axisLeft(y)
+    svg.append("g")
+      .attr("class","myYaxis")
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = svg.append("defs").append("svg:clipPath")
+        .attr("id", "clip")
+        .append("svg:rect")
+        .attr("width", width )
+        .attr("height", height )
+        .attr("x", 0)
+        .attr("y", 0);
+
+
+
+function get_vars (d){
+    return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+  }  
+
+////////////////// Show values
+
+// This allows to find the closest X index of the mouse:
+  var bisect = d3.bisector(function(d) { return d.date; }).left;
+  
+  // Create the circle that travels along the curve of chart
+  var focus = svg
+    .append('g')
+    .append('circle')
+      .style("fill", "none")
+      .attr("stroke", "black")
+      .attr('r', 8.5)
+      .style("opacity", 0)
+
+  // Create the text that travels along the curve of chart
+  var focusText = svg
+    .append('g')
+    .append('text')
+      .style("opacity", 0)
+      .attr("text-anchor", "left")
+      .attr("alignment-baseline", "middle")
+
+
+    // Create the line variable: where both the line and the brush take place
+ var lines = svg.append('g')
+          .attr("clip-path", "url(#clip)")
+          .attr("id","clip_0")
+     // Add brushing
+    var brush = d3.brushX()                   // Add the brush feature using the d3.brush function
+        .extent( [ [0,0], [width,height] ] )
+        
+    
+      // Add the brushing
+ lines
+      .append("g")
+        .attr("class", "brush")
+        .call(brush);
+
+function update_data(data){
+    
+    
+    // create x axis
+    x.domain(d3.extent(data, function(d) { return d.date; }))
+    svg.selectAll(".myXaxis").transition()
+    .duration(1000)
+    .call(xAxis);
+    
+    // create y axis
+    y.domain([d3.min(data, function(d) { return +d.value; }), d3.max(data, function(d) { return +d.value; })])
+    svg.selectAll(".myYaxis")
+    .transition()
+    .duration(1000)
+    .call(yAxis);
+    
+    
+ // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+    brush
+        .on("end", updateChart) 
+        // Each time the brush selection changes, trigger the 'updateChart' function
+        
+        
+    // A function that set idleTimeOut to null
+    let idleTimeout
+    function idled() { idleTimeout = null; }
+
+
+
+   
+    var u = svg.selectAll(".lineTest")
+    .data([data], function(d){ return d.date })
+    
+    u
+    .enter()
+    .append("path")
+    .on("mouseenter",mousemove)
+    .on("mouseleave",mouseout)
+    .attr("class","lineTest")
+    .merge(u)
+    .transition()
+    .duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.value); }))
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 2.5)
+      
+
+
+  function mousemove(datum) {
+    focus.style("opacity", 1)
+    focusText.style("opacity",1)
+    // recover coordinate we need
+    //var x0 = x.invert(d3.pointer(this)[0]);
+    var x0 = x.invert(datum.x-60);
+    //var i = bisect(data, x0, 1);
+    var i = bisect(data, x0);
+    var selectedData = data[i]
+    var date= new Date(x0)
+    
+    
+    
+    focus
+      .attr("cx", datum.x-65)
+      .attr("cy", datum.y-100)
+    focusText
+      .html("x:" + date.toLocaleDateString("en-US") + "  ,  " + "y:" + selectedData.value)
+      .attr("x", datum.x-60+15)
+      .attr("y",datum.y-100)
+      
+    }
+    
+    
+  function mouseout(datum) {
+    focus.style("opacity", 0)
+    focusText.style("opacity", 0)
+  }
+
+/////////////////
+
+
+
+
+
+ // A function that update the chart for given boundaries
+    function updateChart(event) {
+
+      // What are the selected boundaries?
+      extent = event.selection
+
+         // If no selection, back to initial coordinate. Otherwise, update X axis domain
+      if(!extent){
+        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+        x.domain([ 4,8])
+      }else{
+        var st=x.invert(event.selection[0])//new
+        var st2=x.invert(event.selection[1])//new
+        x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
+        //lines.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+                svg.select(".brush").call(brush.move, null) // This remove the grey brush area as 
+                
+                
+        var n_data=data.filter(function(x){
+          if(x.date>=st&&x.date<=st2){
+            return x.value
+          }
+        })
+          
+          
+        y.domain([d3.min(n_data, function(d) { return +d.value; }), d3.max(n_data, function(d) { return +d.value; })])
+                
+      }
+
+      // Update axis and line position
+      svg.selectAll(".myXaxis").transition()
+    .duration(1000)
+    .call(xAxis);
+    
+    // Update axis and line position
+      svg.selectAll(".myYaxis").transition()
+    .duration(1000)
+    .call(yAxis);
+    
+    var dat=data.filter(function(x){
+      return x.date>=st&&x.date<=st2
+    })
+    
+     var u = svg.selectAll(".lineTest")
+    .data([dat], function(d){ return d.date })
+    .attr("id","asx")
+    
+    u
+    .enter()
+    .append("path")
+    .on("mousemover",mousemove)
+    .on("mouseleave",mouseout)
+    .attr("class","lineTest")
+    .merge(u)
+    .transition()
+    .duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.value); }))
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2.5)
+
+      
+    
+    }
+    
+    
+
+
+    // If user double click, reinitialize the chart
+    svg.on("dblclick",function(){
+      x.domain(d3.extent(data, function(d) { return d.date; }))
+      
+      svg.selectAll(".myXaxis").transition()
+    .call(xAxis);
+    
+      y.domain([d3.min(data, function(d) { return +d.value; }), d3.max(data, function(d) { return +d.value; })])
+      
+      svg.selectAll(".myYaxis").transition()
+    .call(yAxis);
+    
+    // draw again all
+    
+    var u = svg.selectAll(".lineTest")
+    .data([data], function(d){ return d.date })
+    .attr("id","asx")
+    
+    u
+    .enter()
+    .append("path")
+    .on("mousemover",mousemove)
+    .on("mouseleave",mouseout)
+    .attr("class","lineTest")
+    .merge(u)
+    .transition()
+    .duration(3000)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.value); }))
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 2.5)
+    
+    
+    });
+    
+
+
+    
+    
+    }
+  
+
+  function b1(){
+    d3.csv("https://raw.githubusercontent.com/UlisesHdzG/D3_practice/main/dat_plot.csv",get_vars).then(function(response){return(response)}).then(function(value){return(update_data(value))})
+  }
+  
+    function b2(){
+    d3.csv("https://raw.githubusercontent.com/UlisesHdzG/D3_practice/main/data2.csv",get_vars).then(function(response){return(response)}).then(function(value){return(update_data(value))})
+  }
+  
+  
+  function b3(){
+    d3.csv("https://raw.githubusercontent.com/UlisesHdzG/D3_practice/main/dat3.csv",get_vars).then(function(response){return(response)}).then(function(value){return(update_data(value))})
+  }
+  
+  b1()
+
+</script>

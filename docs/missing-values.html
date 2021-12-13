@@ -193,14 +193,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="missing-values.html#cb5-6" aria-hidden="true" tabindex="-1"></a>inflation_us <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Inflation_US_2012_2021.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb5-7"><a href="missing-values.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="missing-values.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <p>Thus, we then proceed to showcase <code>visualize_missings</code> on the example dataset:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-2.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>We can observe that rows without NAs are the most frequent, accounting for around 60% of them. <code>hhold</code> and <code>steak_prep</code> are the variables with the highest percentage of missing values, having around 20% each.</p>
 <p>Also interesting to note is the fact that when there are NAs in <code>educ</code>, there are also NAs in <code>region</code>, <code>age</code> and <code>female</code>, indicating that such variables come in batch.</p>
 

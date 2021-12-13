@@ -16,6 +16,8 @@ inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F
 
 GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
 GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
+
+financials<- read_csv('Data/Financial data.csv')
 ```
 
 
