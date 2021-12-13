@@ -1,52 +1,18 @@
 library(tidyverse)
 
 
-covid_MX <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/COVID_mex.csv", stringsAsFactors = F)
-covid_US <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/COVID_usa.csv", stringsAsFactors = F)
+covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
+covid_US <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
 
-inflation_MX <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/Inflation_MX_2019_2021.csv", stringsAsFactors = F)
-inflation_US <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/Inflation_US_2012_2021.csv", stringsAsFactors = F)
+inflation_MX <- read.csv("Data/Inflation_MX_2019_2021.csv", stringsAsFactors = F)
+inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F)
 
-GDP_MX <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/GDP_MX_Clean.csv", stringsAsFactors = F)
-GDP_US <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/GDP_US_Clean.csv", stringsAsFactors = F)
+GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
+GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
 
-financials<- read_csv('C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/Financial data.csv')
-
-
-# Health data ratios
-vars=c("date","confirmed","deaths","people_fully_vaccinated")
-covid_MX<-covid_MX%>%
-  select(vars)
-
-covid_US<-covid_US%>%
-  select(vars)
-
-covid<- covid_MX%>%
-  left_join(covid_US,by="date",suffix=c("_MX","_USA"))%>%
-  mutate(date=as.Date(date))
-
-# Mexico/USA
-
-cases_ratio<-covid%>%
-  mutate(value=confirmed_MX/confirmed_USA)%>%
-  select(date,value)
-  
-deaths_ratio<-covid%>%
-  mutate(value=deaths_MX/deaths_USA)%>%
-  select(date,value)
-
-vaccines_ratio<-covid%>%
-  mutate(value= people_fully_vaccinated_MX/people_fully_vaccinated_USA)%>%
-  select(date,value)
-
-# vaccines ratio
-ggplot(cases_ratio)+
-  geom_line(aes(x=date,y=value))
-
+financials<- read_csv('Data/Financial data.csv')
 
 ##############
-covid_MX <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/COVID_mex.csv", stringsAsFactors = F)
-covid_US <- read.csv("C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/COVID_usa.csv", stringsAsFactors = F)
 
 aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, confirmed, population),
                                by=c("date"="date"))
@@ -114,17 +80,20 @@ ggplot(aux3)+
 # confirmed cases
 confirmed<-aux%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
-  select(date,value)
+  select(date,value)%>%
+  filter(!is.na(value),value!=0)
 
 # deaths cases
 deaths<-aux2%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
-  select(date,value)
+  select(date,value)%>%
+  filter(!is.na(value),value!=0)
 
 # vaccinated
 vaccinated<-aux3%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
-  select(date,value)
+  select(date,value)%>%
+  filter(!is.na(value),value!=0)
 
 ggplot(confirmed)+
   geom_line(aes(x=as.Date(date),y=value))
@@ -136,6 +105,7 @@ ggplot(vaccinated)+
   geom_line(aes(x=as.Date(date),y=value))
 
 # save files
+
 write.csv(confirmed,"C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/confirmed_index.csv",row.names = F)
 write.csv(deaths,"C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/deaths_index.csv",row.names = F)
 write.csv(vaccinated,"C:/Users/Ulises/Desktop/Columbia University/Cursos/Fall 21/EDAV/Project/covidUSMexico/Data/vaccinated_index.csv",row.names = F)
