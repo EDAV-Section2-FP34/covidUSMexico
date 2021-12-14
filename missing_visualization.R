@@ -1,11 +1,12 @@
 ######## function of missing patterns
 
-visualize_missings<- function(data,percent=FALSE){
+visualize_missings<- function(data,percent=FALSE,ang=90){
 
 library(tidyverse)
 library(patchwork)
 library(ggnewscale)
 
+  
 if(percent){
   missing_patterns <- data.frame(is.na(data)) %>%
     group_by_all() %>%
@@ -96,7 +97,7 @@ if(percent){
                  fill="a",
                  alpha=0.5))+
     scale_fill_manual(values="darkblue")+
-    theme(legend.position = "None")+
+    theme(legend.position = "None",axis.text.x = element_text(angle = ang))+
     xlab(NULL)+ ylab("% of rows missing")+
     ggtitle("Missing values pattern")
   
@@ -115,7 +116,7 @@ if(percent){
                  fill="a",
                  alpha=0.5))+
     scale_fill_manual(values="darkblue")+
-    theme(legend.position = "None")+
+    theme(legend.position = "None",axis.text.x = element_text(angle = ang))+
     xlab(NULL)+ ylab("# of rows missing")+
     ggtitle("Missing values pattern")
   
@@ -152,7 +153,7 @@ if(nrow(labels)==0){
                   y=reorder(Miss_pat,-Miss_pat),fill=value),color="white")+
     scale_y_discrete(labels = lab_breaks,breaks=lab_breaks)+
     scale_fill_manual(values=lab_col)+
-    theme(legend.position = "None")+
+    theme(legend.position = "None",,axis.text.x = element_text(angle = ang))+
     xlab("Variable")+ ylab("Missing pattern")
 }else{
 p_heat<-patterns%>%
@@ -172,7 +173,7 @@ p_heat<-patterns%>%
            x=ceiling(length(labels$var)/2),
            y=reorder(labels$Miss_pat,-labels$Miss_pat),
            label="Complete cases")+
-  theme(legend.position = "None")+
+  theme(legend.position = "None",axis.text.x = element_text(angle = ang))+
   xlab("Variable")+ ylab("Missing pattern")
 }
 
