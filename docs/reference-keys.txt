@@ -1,6 +1,9 @@
 introduction
 data-sources
 health-data
+epidemiological-variables
+policy-measures
+administrative-areas
 macroeconomic-data
 economic-growth
 inflation

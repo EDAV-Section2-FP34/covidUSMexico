@@ -22,6 +22,60 @@ The data that we will use in the project can be categorized in three verticals:
 
 ## Health data
 
+For this category of variables, team member Ulises Hernandez located a very well polished R package [COVID19](https://covid19datahub.io/) of data related to the COVID-19 pandemic. This repository was was initiated by Emanuele Guidotti (University of Neuchâtel), leveraged by David Ardia (HEC Montréal), enhanced by the open source community, and is currently maintained by Emanuele Guidotti.
+
+The initiative has aggregated data of many countries, but we restricted our use to only data corresponding to the US and Mexico. The variables in the data set can classified in three broad categories:
+
+### Epidemiological variables
+
+This group of variables includes the following variables:
+
+* `confirmed`:	Cumulative number of confirmed cases.
+* `deaths`:	Cumulative number of deaths.
+* `recovered`:	Cumulative number of patients released from hospitals or reported recovered.
+* `tests`:	Cumulative number of tests.
+* `vaccines`:	Cumulative number of total doses administered.
+* `people_vaccinated`:	Cumulative number of people who received at least one vaccine dose.
+* `people_fully_vaccinated`:	Cumulative number of people who received all doses prescribed by the vaccination protocol.
+* `hosp`:	Number of hospitalized patients on date.
+* `icu`:	Number of hospitalized patients in intensive therapy on date.
+* `vent`:	Number of patients requiring invasive ventilation on date.
+* `population`: Total population.
+
+### Policy measures
+
+According to the documentation of the data hub, policy measures are provided by [Oxford Covid-19 Government Response Tracker](https://github.com/OxCGRT/covid-policy-tracker). As one can expect with this kind of data, policies not only vary by country, but even by region within given country. For this reason, the tracker uses flag variables to denote this limited scope of different measures. That is, the indicators have a flag for whether they are”targeted" to a specific geographical region (flag=0) or whether they are a “general” policy that is applied across the whole country/territory (flag=1). The compiled variables are the following:
+
+* `school_closing`
+* `workplace_closing`
+* `cancel_events`
+* `gatherings_restrictions`
+* `transport_closing`
+* `stay_home_restrictions`
+* `internal_movement_restrictions`
+* `international_movement_restrictions`
+* `information_campaigns`
+* `testing_policy`
+* `contact_tracing`
+* `facial_coverings`
+* `vaccination_policy`
+* `elderly_people_protection`
+* `government_response_index`
+* `stringency_index`
+* `containment_health_index`
+* `economic_support_index`
+
+### Administrative areas
+
+Finally, the data hub also compiles data on the administrative area:
+
+* `administrative_area_level`: Level of the administrative area: 1 for countries; 2 for states, regions, cantons, or local * * `equivalent; 3 for cities, municipalities, or local equivalent.
+* `administrative_area_level_1`:	Name of the administrative area of level 1.
+* `administrative_area_level_2`:	Name of the administrative area of level 2.
+* `administrative_area_level_3`:	Name of the administrative area of level 3.
+
+For a more detailed explanation  of the variables just explained, the [documentation page](https://covid19datahub.io/articles/docs.html) of the data hub is an excellent resource for people interested in using this data set.
+
 ## Macroeconomic data
 
 ### Economic Growth

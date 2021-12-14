@@ -141,7 +141,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#health-data"><i class="fa fa-check"></i><b>2.1</b> Health data</a></li>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#health-data"><i class="fa fa-check"></i><b>2.1</b> Health data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#epidemiological-variables"><i class="fa fa-check"></i><b>2.1.1</b> Epidemiological variables</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-sources.html"><a href="data-sources.html#policy-measures"><i class="fa fa-check"></i><b>2.1.2</b> Policy measures</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-sources.html"><a href="data-sources.html#administrative-areas"><i class="fa fa-check"></i><b>2.1.3</b> Administrative areas</a></li>
+</ul></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#macroeconomic-data"><i class="fa fa-check"></i><b>2.2</b> Macroeconomic data</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#economic-growth"><i class="fa fa-check"></i><b>2.2.1</b> Economic Growth</a></li>
@@ -197,38 +202,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="missing-values.html#cb5-6" aria-hidden="true" tabindex="-1"></a>inflation_us <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/COVID_usa.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb5-7"><a href="missing-values.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="missing-values.html#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="missing-values.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inflation_mx)</span></code></pre></div>
-<pre><code>##  [1] &quot;date&quot;                                &quot;confirmed&quot;                          
-##  [3] &quot;deaths&quot;                              &quot;recovered&quot;                          
-##  [5] &quot;tests&quot;                               &quot;vaccines&quot;                           
-##  [7] &quot;people_vaccinated&quot;                   &quot;people_fully_vaccinated&quot;            
-##  [9] &quot;hosp&quot;                                &quot;icu&quot;                                
-## [11] &quot;vent&quot;                                &quot;population&quot;                         
-## [13] &quot;school_closing&quot;                      &quot;workplace_closing&quot;                  
-## [15] &quot;cancel_events&quot;                       &quot;gatherings_restrictions&quot;            
-## [17] &quot;transport_closing&quot;                   &quot;stay_home_restrictions&quot;             
-## [19] &quot;internal_movement_restrictions&quot;      &quot;international_movement_restrictions&quot;
-## [21] &quot;information_campaigns&quot;               &quot;testing_policy&quot;                     
-## [23] &quot;contact_tracing&quot;                     &quot;facial_coverings&quot;                   
-## [25] &quot;vaccination_policy&quot;                  &quot;elderly_people_protection&quot;          
-## [27] &quot;government_response_index&quot;           &quot;stringency_index&quot;                   
-## [29] &quot;containment_health_index&quot;            &quot;economic_support_index&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;date&quot;</span>,<span class="st">&quot;confirmed&quot;</span>,<span class="st">&quot;deaths&quot;</span>, <span class="st">&quot;recovered&quot;</span>,<span class="st">&quot;tests&quot;</span>,<span class="st">&quot;vaccines&quot;</span>,</span>
-<span id="cb7-2"><a href="missing-values.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;peop_vacc&quot;</span>,<span class="st">&quot;peop_f_vac&quot;</span>,<span class="st">&quot;hosp&quot;</span>,<span class="st">&quot;icu&quot;</span>,<span class="st">&quot;vent&quot;</span>,<span class="st">&quot;population&quot;</span>,</span>
-<span id="cb7-3"><a href="missing-values.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;school_close&quot;</span>,<span class="st">&quot;workpl_close&quot;</span>,<span class="st">&quot;cancel_events&quot;</span>,<span class="st">&quot;gatherings_res&quot;</span>,</span>
-<span id="cb7-4"><a href="missing-values.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;transport_close&quot;</span>,<span class="st">&quot;stay_home_r&quot;</span>,<span class="st">&quot;int_move_rest&quot;</span>,</span>
-<span id="cb7-5"><a href="missing-values.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;internat_move_rest&quot;</span>, <span class="st">&quot;inf_camp&quot;</span>, <span class="st">&quot;test_policy&quot;</span>,<span class="st">&quot;contact_trace&quot;</span>,</span>
-<span id="cb7-6"><a href="missing-values.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;facial_cover&quot;</span>, <span class="st">&quot;vaccin_policy&quot;</span>, <span class="st">&quot;elderly_peop_protec&quot;</span>, <span class="st">&quot;gover_resp_ind&quot;</span>, <span class="st">&quot;string_ind&quot;</span>, <span class="st">&quot;cont_health_ind&quot;</span>,<span class="st">&quot;econ_supp_ind&quot;</span></span>
-<span id="cb7-7"><a href="missing-values.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-8"><a href="missing-values.html#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="missing-values.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
+<span id="cb5-9"><a href="missing-values.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inflation_mx)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;date&quot;</span>,<span class="st">&quot;confirmed&quot;</span>,<span class="st">&quot;deaths&quot;</span>, <span class="st">&quot;recovered&quot;</span>,<span class="st">&quot;tests&quot;</span>,<span class="st">&quot;vaccines&quot;</span>,</span>
+<span id="cb5-10"><a href="missing-values.html#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;peop_vacc&quot;</span>,<span class="st">&quot;peop_f_vac&quot;</span>,<span class="st">&quot;hosp&quot;</span>,<span class="st">&quot;icu&quot;</span>,<span class="st">&quot;vent&quot;</span>,<span class="st">&quot;population&quot;</span>,</span>
+<span id="cb5-11"><a href="missing-values.html#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;school_close&quot;</span>,<span class="st">&quot;workpl_close&quot;</span>,<span class="st">&quot;cancel_events&quot;</span>,<span class="st">&quot;gatherings_res&quot;</span>,</span>
+<span id="cb5-12"><a href="missing-values.html#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;transport_close&quot;</span>,<span class="st">&quot;stay_home_r&quot;</span>,<span class="st">&quot;int_move_rest&quot;</span>,</span>
+<span id="cb5-13"><a href="missing-values.html#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;internat_move_rest&quot;</span>, <span class="st">&quot;inf_camp&quot;</span>, <span class="st">&quot;test_policy&quot;</span>,<span class="st">&quot;contact_trace&quot;</span>,</span>
+<span id="cb5-14"><a href="missing-values.html#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;facial_cover&quot;</span>, <span class="st">&quot;vaccin_policy&quot;</span>, <span class="st">&quot;elderly_peop_protec&quot;</span>, <span class="st">&quot;gover_resp_ind&quot;</span>, <span class="st">&quot;string_ind&quot;</span>, <span class="st">&quot;cont_health_ind&quot;</span>,<span class="st">&quot;econ_supp_ind&quot;</span></span>
+<span id="cb5-15"><a href="missing-values.html#cb5-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-16"><a href="missing-values.html#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="missing-values.html#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inflation_us)<span class="ot">&lt;-</span><span class="fu">names</span>(inflation_mx)</span>
+<span id="cb5-18"><a href="missing-values.html#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="missing-values.html#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_mx)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(inflation_us)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <p>Thus, we then proceed to showcase <code>visualize_missings</code> on the example dataset:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="missing-values.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,T)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1440" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="missing-values.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize_missings</span>(fivethirtyeight<span class="sc">::</span>steak_survey,F)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-12-2.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>We can observe that rows without NAs are the most frequent, accounting for around 60% of them. <code>hhold</code> and <code>steak_prep</code> are the variables with the highest percentage of missing values, having around 20% each.</p>
 <p>Also interesting to note is the fact that when there are NAs in <code>educ</code>, there are also NAs in <code>region</code>, <code>age</code> and <code>female</code>, indicating that such variables come in batch.</p>
