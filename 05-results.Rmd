@@ -6,6 +6,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(zoo)
+library(readr)
+library(RColorBrewer)
 # render_book()
 
 covid_MX <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
@@ -17,7 +19,8 @@ inflation_US <- read.csv("Data/Inflation_US_2012_2021.csv", stringsAsFactors = F
 GDP_MX <- read.csv("Data/GDP_MX_Clean.csv", stringsAsFactors = F)
 GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
 
-financials<- read_csv('Data/Financial data.csv')
+financials <- read_csv('Data/Financial data.csv')
+
 ```
 
 
@@ -129,9 +132,9 @@ We can see that prior to March 2020, both economies had a steady economic growth
 
 However, Mexico was the country that suffered the greatest downfall in production *across* the time window, with a huge -22.86% growth in March and a consistently less growth in the following months, except for May and June 2021, where the arithmetic effect of having a small production one year ago (first wave of the pandemic), will make the high growth seem as product of an increase of the current production when it is actually due to a devastating decrease of the past one.
 
-It is worth nothing that it was only in the begining of the pandemic that both economies suffered such an unprecedented decrease, as the second and third waves around winter 2020 and August 2021 (see Fig. 2) did not have the same impact as the first. The is may be explained due to the closing policies being more relaxed after the first tight lockdown, something we will explore in section **5.3**.
+It is worth nothing that it was only in the beginning of the pandemic that both economies suffered such an unprecedented decrease, as the second and third waves around winter 2020 and August 2021 (see Fig. 2) did not have the same impact as the first. The is may be explained due to the closing policies being more relaxed after the first tight lock down, something we will explore in section **5.3**.
 
-We now turn attention on the impact f the pandemic at sublevels of economic activities. To analyze with more detail the difference in impact between countries, we compute the *difference in growth*, that is $\Delta US_k - \Delta  MX_k$ where $\Delta US_k$ represents the annual growth in the US for economic activity $k \in$ (primary, secondary, tertiary). 
+We now turn attention on the impact f the pandemic at sub levels of economic activities. To analyze with more detail the difference in impact between countries, we compute the *difference in growth*, that is $\Delta US_k - \Delta  MX_k$ where $\Delta US_k$ represents the annual growth in the US for economic activity $k \in$ (primary, secondary, tertiary). 
 
 ```{r}
 aux <- GDP_MX
@@ -149,7 +152,7 @@ labs(x = 'Growth US - Growth Mexico (percentage points)', y = 'Economic Activity
 
 We see in all cases the difference in growth has median greater than 0, which tells us about a greater recession in Mexico than in US. Tertiary activities show the greatest difference with a median difference of more than 5 percentage points, which indicates that the US has greater resilience in all sectors, but specially in service activities.
 
-It is worth noting that primary and secondary activities have the first quartile less than 0, indicating that around 25% of the times, Mexico showed a higher economic growth during the pandemic. This speaks of an economy that focuses more in extraction of raw materials and manufacturing than in services, when compared to US' standards.
+It is worth noting that primary and secondary activities have the first quarter less than 0, indicating that around 25% of the times, Mexico showed a higher economic growth during the pandemic. This speaks of an economy that focuses more in extraction of raw materials and manufacturing than in services, when compared to US' standards.
 
 We now turn our attention to inflation and its relation to economic activity, to see the effects of the pandemic in the prices of each economy from January 2020 to September 2021.
 
@@ -183,13 +186,56 @@ aux %>% mutate(Month=as.Date(Month, format="%d/%m/%Y"),
   
 ```
 
-We can see that the initial lockdown decreased both the economic growth and inflation rate in the two countries, this is a natural consequence of less activity implying less demand for products and services and as such, a decrease in prices and in inflation.
+We can see that the initial lock down decreased both the economic growth and inflation rate in the two countries, this is a natural consequence of less activity implying less demand for products and services and as such, a decrease in prices and in inflation.
 
 However, as the economic growth (dashed lines) started increasing, product of the reopening of both economies around June 2020, the inflation increased to levels higher than before the pandemic, and even when the economic activity started decreasing after June 2021 towards its pre-pandemic state, the inflation still seems to be in a positive trend.
 
 In this case again, Mexico is the country experiencing harder consequences as inflation is consistently higher than in the US, and the last observed months (August to September 2021), show a greater slope than the US.
 
-We now will turn to analyzing the performance of the financial variables throughout the evolution of the pandemic. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.
+We now will turn to analyzing the performance of the financial stock markets throughout the evolution of the pandemic.
+
+We now present a comparison of the stock indexes in both countries, indexed at the same level at the end of 2019, we can observe that the Mexican market slightly under performs the american reference (S&P500), but this is misleading because after adjusting by the exchange rate, the effect is more severe as the demand for US dollars was globally exacerbated.
+
+```{r}
+
+aggr_indexes <- select(financials, c('Date',
+                                     'S&P500',
+                                     'MexicanStocksIndex',
+                                     'USDMXN')) %>% 
+  drop_na()
+
+colnames(aggr_indexes) <- c('date', 'sp500', 'ipc', 'usdmxn')
+aggr_indexes$ipc_usd <- aggr_indexes$ipc/aggr_indexes$usdmxn
+aggr_indexes = aggr_indexes[,!(names(aggr_indexes) %in% 'usdmxn')]
+
+for (idx in colnames(aggr_indexes)[-1])
+{
+  base_value <- as.numeric(aggr_indexes[aggr_indexes$date == '2019-12-31', idx])
+  aggr_indexes[idx] <- 100*aggr_indexes[idx]/base_value
+}
+
+aggr_indexes <- pivot_longer(aggr_indexes, !date, names_to = 'index', values_to = 'value')
+
+#aggr_indexes$date = format(aggr_indexes$date, "%Y-%m")
+
+ggplot(aggr_indexes, aes(x=date, y=value, color=index)) +
+  geom_line() + 
+  scale_color_manual(labels = c("IPC (MXN)", "IPC (USD)", "S&P 500"),
+                     values = c("lightgreen", "darkgreen", "blue")) + 
+  ggtitle("Fig. 6 Performance of stock indices in both countries")+
+  labs(
+       x ="Date",
+       y = "Index value (base: 31-Dec-2019 = 100)") + 
+  theme(axis.text.x = element_text(vjust = 0.5)) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 90))
+  
+
+```
+
+
+
+We now turn our attention to the sector in the US market. Given that we have sectorized of the US stock market, we decided to create a heat map of these sectors to see which aspect of economic activity was perceived to be most affected by market participants.
 
 ```{r}
 monthly_fin <- financials %>% 
@@ -225,7 +271,8 @@ ggplot(data, aes(X, Y, fill= Z)) +
                        direction = 1,
                        limits = c(100 - bound, 100 + bound),
                        name = "Index value") +
-  labs(title="Heatmap of sector indices of S&500 (base: Dec-2019 = 100)",
+  ggtitle("Fig. 7 Heatmap of sector indices of S&500 (base: Dec-2019 = 100)")+
+  labs(
        x ="Month",
        y = "Sector") + 
   theme(axis.text.x = element_text(vjust = 0.5)) +
@@ -236,32 +283,6 @@ ggplot(data, aes(X, Y, fill= Z)) +
 We can observe that energy was the sector most impacted by the pandemic as governments soon started imposing travel restrictions which greatly diminished the outlook for the price of oil in the following months. This expectation came to be realized as the enegy index is the only sector of the S&P 500 that has not recovered its pre-pandemic level. In addition, we can also observe that the Technology sector not only has been the most resilient during the pandemic, but has had a strong rally during the pandemic, something that is explained by the strong demand of IT hardware and services as companies had to migrate to a remote work environment.
 
 Finally, something that come as a surprise to us was the relatively strong performance of the sector of Consumer Discretionary products. This sector tracks companies delivering goods and services that are considered non-essential by consumers, but desirable if their available income is sufficient to purchase them. Representative companies within this sector are Amazon, Home Depot, McDonald's, Nike and Lowe's. Although at first glance one would have thought that people would prioritize savings over non-essential consumption, the massive financial aid programs that went into effect seem to have supported discretionary spending by American households.
-
-```{r}
-data_matrix <- 100*(as.matrix(monthly_fin[-1,-1]/monthly_fin[-nrow(monthly_fin),-1]) - 1)
-
-# Dummy data
-x <- monthly_fin$mon_yr[-1]
-y <- col_names[-1]
-data <- expand.grid(X=x, Y=y)
-data$Z <- c(t(data_matrix))
-
-# Give extreme colors
-bound = max(abs(c(max(data$Z), min(data$Z))))
-ggplot(data, aes(X, Y, fill= Z)) + 
-  geom_tile() + 
-  scale_fill_distiller(palette = "RdYlGn",
-                       direction = 1,
-                       limits = c(-bound, bound),
-                       name = "Monthly return") +
-  labs(title="Heatmap of monthly returns of sectors of S&500 (%)",
-       x ="Month",
-       y = "Sector") + 
-  theme(axis.text.x = element_text(vjust = 0.5)) +
-  theme(plot.title = element_text(hjust = 0.5)) + 
-  theme(axis.text.x = element_text(angle = 90))
-```
-
 
 ## Relation between public health and economic conditions in each country
 
@@ -297,13 +318,13 @@ aux %>%
   ggplot(aes(x=death_MX, y=Total.x)) + geom_smooth(method='lm')+
     geom_point(alpha=0.3, color='blue', size=1.8)+
   annotate('text', x=30000, y=25,
-           label=paste("B1 =", trunc(1000000*coef(lm(Total.x~death_MX, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 6 Health - Economic Association: Mexico")
+           label=paste("B1 =", trunc(1000000*coef(lm(Total.x~death_MX, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 8 Health - Economic Association: Mexico")
 
 aux %>% 
   ggplot(aes(x=death_US, y=Total.y)) + geom_smooth(method='lm')+
     geom_point(alpha=0.3, color='blue', size=1.8)+
   annotate('text', x=80000, y=20,
-           label=paste("B1 =", trunc(1000000*coef(lm(Total.y~death_US, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 7 Health - Economic Association: US")
+           label=paste("B1 =", trunc(1000000*coef(lm(Total.y~death_US, data=aux))[2])/1000000) ) + labs(x="Monthly deaths", y="Economic Growth (%)", title="Fig. 9 Health - Economic Association: US")
 
 # Confirmed no jala
 
@@ -312,5 +333,55 @@ aux %>%
 
 We can see that the fitted line in both cases shows a negative trend, indicating that higher the deaths, lower the economic growth. The estimated $\beta_1$ coefficient for mexico is greater in absolute value, pointing out that for this country the economic fallout was worse.
 
-## Which economy better policies?
 
+## Which government designed the most effective public policies to deal with the pandemic?
+
+To analyze the policy evolution of the two countries, we count the number of active anti-COVID policies in a given day, among the following 14:
+
+*School closing*, *workplace closing*, *cancel events*, *gatherings restrictions*, *transport closing*, *stay_home restrictions* *internal_movement restrictions*, *international movement restrictions*, *information campaigns*, *testing policy*, *contact tracing*, *facial coverings*, *vaccination policy*, *elderly people protection*.
+
+This variables gives us information about each policy's status in the whole country.
+We construct a discrete time series for each country that bounded to be between 0 and 14. We display it together with the smoothed daily per capita deaths of each country.
+
+```{r}
+
+aux <- covid_MX %>% inner_join(dplyr::select(covid_US, date, deaths,
+                                             population, school_closing:elderly_people_protection),
+                        by=c("date"="date"))
+aux$Daily_Cases_MX <- c(aux$deaths.x[1], (aux$deaths.x[-1]-aux$deaths.x[-nrow(aux)])) / aux$population.x
+aux$Daily_Cases_US <- c(aux$deaths.y[1], (aux$deaths.y[-1]-aux$deaths.y[-nrow(aux)])) / aux$population.y
+
+aux[is.na(aux)] <- 0
+aux$Cases_MX <- ES(aux$Daily_Cases_MX, 0.1)
+aux$Cases_US <- ES(aux$Daily_Cases_US, 0.1)
+aux <- aux %>% filter(!is.na(Cases_US))
+
+# Number of Covid-related policies in time
+aux[, 13:26] <- sapply(aux[, 13:26], function(x) ifelse(x>0, 1, 0) )
+aux$Policies_MX <- apply(aux[, 13:26], 1, sum)
+aux[, 33:46] <- sapply(aux[, 33:46], function(x) ifelse(x>0, 1, 0) )
+aux$Policies_US <- apply(aux[, 33:46], 1, sum)
+
+scale_value = max(10000000*aux$Cases_MX, na.rm = TRUE)/ max(aux$Policies_MX, na.rm=TRUE) 
+aux %>% mutate(Month=as.Date(date, format="%Y-%m-%d")) %>%   
+  ggplot() + 
+  geom_line( aes(x= Month, y= 10000000*Cases_MX, colour='dg'), size=1,
+             linetype = "dashed") +
+  geom_line(aes(x= Month, y= 10000000*Cases_US, colour = 'b'), size=1,
+            linetype = "dashed") +
+  geom_line(aes(x= Month, y = Policies_MX*scale_value, colour = 'dg')) + 
+  geom_line(aes(x= Month, y = Policies_US*scale_value, colour = 'b')) +
+  scale_colour_manual(name = 'Country', 
+         values =c(dg='darkgreen',b='blue'), labels = c('US','Mexico')) +
+  scale_y_continuous(sec.axis = sec_axis(~./scale_value, name = 'Num. Policies (Solid Lines)')) + ylab("Deaths (Dashed Lines)") +
+  ggtitle('Fig. 10 Smoothed Deaths per 10M population and\nPolicy Implementation')
+
+``` 
+
+We can see that the US started implementing policies (solid blue line) before the pandemic started in the country and in advance of Mexico. The US stabilized the number of policies around 6 until the second wave of winter 2020 when it reached around 9. After the second wave the US decreased the number of policies to just 5: international movement restrictions, information campaigns, testing policy, contact tracing and vaccination policy.
+
+In contrast, Mexico overreacted in the beginning of the pandemic by rapidly increasing the restriction policies to 11. Realizing this overreaction, the government then decreased the number to around 8 and has been decreasing it with time.
+
+In average, Mexico has been more restrictive as the number of policies is greater than the US in many periods. In contrast the US has been more precise by implementing policies in advance, not overreacting and increasing them only in the most complex periods (near the peak of the second wave).
+
+It is also worth noting that even when US implemented less policies in average, the deaths per capita are similar, which reinforces the argument of a better implemented set of policies.

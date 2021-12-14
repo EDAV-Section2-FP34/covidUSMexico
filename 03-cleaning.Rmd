@@ -1,6 +1,18 @@
 # Data transformation
 
-We now proceed to transform the macroeconomic data for the two countries
+Depending on the type of variables, different data transformations were applied in order to make the proper analysis. As is natural with time-series data, many of the transformations had to do with a way of dealing with trends or change in the longitudinal, although in some instances this trending behaviour was desired in order to make proper comparisons.
+
+## Health variables
+
+In this category of variables, the main purpose of the transformations was to provide a way to make comparison of daily cases and deaths related to COVID-19, and also vaccination rates when this information became available. The methodology we followed was to take the ratio of the Mexican target metric over the American target metric. For example, in the case of daily COVID-19 confirmed cases, we created a new time series that was calculated as by dividing the daily count of COVID-19 cases in Mexico divided by the corresponding daily count of COVID-19 cases in the United States. Therefore, a number greater that 1 for this index means that coronavirus cases in Mexico increased more rapidly than cases in the United States, and vice versa for an index value less than 1. The code we used for transforming this data can be found [here](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/datos_series.R).
+
+## Economic variables
+
+The main challenge in this category of data was to match the different definitions of economic activity in the Mexican and in the US. Government agencies in Mexico and the US follow classifications of economic enterprises and data, and hence, the bulk of the transformations we used here focused on making an appropriate matching of levels in the two countries.
+
+## Financial variables
+
+Finally, financial variables data required the standardization of the price (levels) of the different indices that were gathered, in a way that would clearly show the sectors and indices that outperformed the index average, as well as to give a clear picture of abrupt movement of financial markets when pandemic begun. In addition, given that this data was downloaded through an API, the data required the usual pivot longer transformations in order to be arranged in a desired format. The code we used to download these data and make the initial set of transformations can be found [here](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/Data/financial%20data.R).
 
 ```{r}
 library(dplyr)

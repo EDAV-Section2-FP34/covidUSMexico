@@ -14,7 +14,7 @@ GDP_US <- read.csv("Data/GDP_US_Clean.csv", stringsAsFactors = F)
 
 The data that we will use in the project can be categorized in three verticals:
 
-* **Health data**: Consisting of positive cases, deaths, vaccination and policy implementation.
+* **Health data**: Consisting of positive COVID cases, deaths due to COVID, vaccination and policy implementation.
 
 * **Macroeconomic data**: Consisting of economic growth by sector and the inflation rate.
 
@@ -22,7 +22,7 @@ The data that we will use in the project can be categorized in three verticals:
 
 ## Health data
 
-For this category of variables, team member Ulises Hernandez located a very well polished R package [COVID19](https://covid19datahub.io/) of data related to the COVID-19 pandemic. This repository was was initiated by Emanuele Guidotti (University of Neuchâtel), leveraged by David Ardia (HEC Montréal), enhanced by the open source community, and is currently maintained by Emanuele Guidotti.
+For this category of variables, team member Ulises Hernandez located a very well polished R package [COVID19](https://covid19datahub.io/)^[Guidotti, E., Ardia, D., (2020), "COVID-19 Data Hub", Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.] of data related to the COVID-19 pandemic. This repository was initiated by Emanuele Guidotti (University of Neuchâtel), leveraged by David Ardia (HEC Montréal), enhanced by the open source community, and is currently maintained by Emanuele Guidotti.
 
 The initiative has aggregated data of many countries, but we restricted our use to only data corresponding to the US and Mexico. The variables in the data set can classified in three broad categories:
 
@@ -74,7 +74,7 @@ Finally, the data hub also compiles data on the administrative area:
 * `administrative_area_level_2`:	Name of the administrative area of level 2.
 * `administrative_area_level_3`:	Name of the administrative area of level 3.
 
-For a more detailed explanation  of the variables just explained, the [documentation page](https://covid19datahub.io/articles/docs.html) of the data hub is an excellent resource for people interested in using this data set.
+For a more detailed explanation  of the variables just mentioned, the [documentation page](https://covid19datahub.io/articles/docs.html) of the data hub is an excellent resource for people interested in using this data set.
 
 ## Macroeconomic data
 
@@ -82,13 +82,13 @@ For a more detailed explanation  of the variables just explained, the [documenta
 
 Team member Abel Perez consulted economic growth data for Mexico from https://www.inegi.org.mx/app/indicadores/?tm=0 , in specific, he consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.
 
-The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.
+The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and third activities.
 
 ```{r}
 str(GDP_MX)
 ```
 
-For the US, he consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, he consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es . he then consulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
+For the US, he consulted the monthly GDP from https://ihsmarkit.com/products/us-monthly-gdp-index.html. This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between Mexico and the US. To tackle this problem, he consulted Mexico's aggregation of economic activities from https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR199&locale=es. He then consulted the proportion of contribution of sub-economic activities in the US from https://apps.bea.gov/iTable/iTable.cfm?reqid=150&step=2&isuri=1&categories=gdpxind and aggregated the activities based on their definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico's definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).
 
 The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico's data
 
@@ -135,11 +135,6 @@ In the case of the United States, given that there are plenty of well maintained
 
 In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.
 
-The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most 
+The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most importantly the adjusted price of the index, which is the price adjusted by corporate actions and is the relevant price we have to focus.
 
 Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.
-
-
-
-
-

@@ -51,18 +51,18 @@ Particularly, for each country we have the following insights:
   
     a. There are 14 missing values pattern in the dataset of Mexico.
     
-    b. There are three variables that have all their values as missing, and they represent the second most popular missing pattern in the data with presence in around 20% of the rows: Number of hospitalized patients on date (*hosp*); Number of hospitalized patients in intensive therapy on date (*icu*); Number of patients requiring invasive ventilation on date (*vent*). This pattern suggests that this data is not release by the country.
+    b. There are three variables that have all their values as missing, and they represent the second most popular missing pattern in the data with presence in around 20% of the rows: Number of hospitalized patients on date (`hosp`); Number of hospitalized patients in intensive therapy on date (`icu`); Number of patients requiring invasive ventilation on date (`vent`). This pattern suggests that this data is not release by the country.
     
-    c. The pattern with most missing values is the one that includes the three above variables and vaccines related variables, with presence in around 35% of the rows: Cumulative number of total doses administered (*vaccines*), Cumulative number of people who received at least one vaccine dose (*peop_vacc*) and Cumulative number of people who received all doses prescribed by the vaccination protocol (*peop_f_vac*). The missing values from vaccination data is clearly because there were not vaccines available at the beginning of the pandemic.
+    c. The pattern with most missing values is the one that includes the three above variables and vaccines related variables, with presence in around 35% of the rows: Cumulative number of total doses administered (`vaccines`), Cumulative number of people who received at least one vaccine dose (`peop_vacc`) and Cumulative number of people who received all doses prescribed by the vaccination protocol (`peop_f_vac`). The missing values from vaccination data is clearly because there were not vaccines available at the beginning of the pandemic.
     
-    d. All the aforementioned variables and the *recovered* variable are the ones that have the most missing values observations among all the variables. This can suggests that the country could have had issues related to vaccines and in reporting recovered patients data.
+    d. All the aforementioned variables and the `recovered` variable are the ones that have the most missing values observations among all the variables. This can suggests that the country could have had issues related to vaccines and in reporting recovered patients data.
 
 2. **USA**: From the missing values plots we can observe:
 
     a. There are fewer number of missing value patters, compared to Mexico. The dataset for USA has 6 missing values patterns.
     
-    b. There are two variables with all of their values as missings and that represent the most frequent pattern of missing values: *recovered* and *vent*. This pattern is present in almost 50% of the rows.
+    b. There are two variables with all of their values as missings and that represent the most frequent pattern of missing values: `recovered` and `vent`. This pattern is present in almost 50% of the rows.
     
-    c. The second most popular pattern with around 20% of the rows contains the two variables mentioned above and the variables related to vaccines: *peop_f_vac*, *peop_vacc* and *vaccines*. 
+    c. The second most popular pattern with around 20% of the rows contains the two variables mentioned above and the variables related to vaccines: `peop_f_vac`, `peop_vacc` and `vaccines`. 
     
-    d. The last pattern with significant presence in the data (around 20%) contain all the aforementioned variables and the variables *hosp* and *icu*.
+    d. The last pattern with significant presence in the data (around 20%) contain all the aforementioned variables and the variables `hosp` and `icu`.

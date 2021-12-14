@@ -1,2 +1,18 @@
 # Conclusion
 
+## Health dimension
+
+As was a common phenomenon worldwide, health officials and governments around the world did not took enough measures to mitigate the rapid spread of the virus in early February and March of 2020, and Mexico and the US were no exceptions. As the first cases outside China were appearing around the world, health and epidemiological agencies started sounding the alarms in both countries. Nonotheless, the executive branches of both countries did not take appropiate measures and clusters of cases begun to appear in American cities such as Seattle and New York. Given the status of the US as an international hub, it does not come as a surprise that covid cases started ro rapidly increase sharply in the US. Subsequently, as the virus propagated around the world, cases in Mexico naturally started to increase as well.
+
+One of the lessons of our analysis is that Mexican official consistently lagged the US measures to control the spread of the virus, and when they did react, the measures imposed in Mexico were more way more stringent and often times it was an over-reaction to the current state of the pandemic (Chapter 5.3).
+
+In addition, despite the higher inflation rate in the US, the per capita mortality was similar between both countries, which indicates a higher severity in Mexico. However, one possible limitation of our analysis that COVID-19 data reported in both countries does not reflect the way higher number of COVID-19 tests that were performed in US as compared to Mexico, something that arguably contributed to an under reporting the death toll related to the pandemic.
+
+## Economic and financial impact and recovery
+
+In economic and financial terms, it was also evident that the pandemic had a more severe impact in Mexico than in the US, measured by a larger drop in economic output and higher inflation rate in recent months. In addition, the status of the US as a safe haven of assets, caused the US dollar sharply increase its value relative to the Mexican peso, as well as stock markets around the world to dramatically under perform its American counterparts, even as in the US the outlook for financial assets was not very good in the initial months of the pandemic. This was clearly reflected our analysis of associations that we performed in previous sections. The pandemic data clearly had a larger impact Mexico than in the US, both, in terms of financials markets and economic measures of activity
+
+However, we would have liked to have more segregated data for financial data in Mexico in order to also analyze the impact of the pandemic in different sectors of the Mexican economic.
+
+
+

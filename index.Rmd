@@ -1,5 +1,5 @@
 --- 
-title: "Covid US Mexico"
+title: "Covid impact: US vs Mexico"
 author:
   - Gilberto Garcia Perez (gg2831)
   - Pablo Ulises Hernandez Garces (ph2632)
@@ -12,16 +12,15 @@ site: bookdown::bookdown_site
 
 The COVID-19 has been an outstanding event in contemporaneous history. It represents an unexpected and unprecedented event that affected the whole world as a whole.
 
-Despite the common treat it represented (and still represents) for the entire world, individual countries tackled the pandemic with different approaches and policies. Such heterogeneity in government decisions led to variability on the pandemic's effect in specific countries.
+Despite the common threat it represented (and still represents) for the entire world, individual countries tackled the pandemic with different approaches and policies. Such heterogeneity in government decisions led to variability on the pandemic's effect in specific countries.
 
-While it is a fact that every country suffered negative health and economic outcomes, the main question that interests us is **who did it better?**. In this project we will focus on this question for the specific case of Mexico and the United States.
+While it is a fact that every country suffered negative health and economic outcomes, the main question that interests us is **who did it better?** In this project we will focus on this question for the specific case of Mexico and the United States.
 
 Specifically, we are interested in studying the main differences we could identify. To that end, we will postulate the following questions:
 
-* Which economy suffered t he most during the pandemic? What’s a good metric to
-measure economic and financial impact?
+* Which economy suffered the most during the pandemic? 
 
-* Which country lagged the most in its recovery? How strong is the relationship between
+* How strong is the relationship between
 public health and economic conditions in each country?
 
-* On a holistic approach, which government designed the most effective public policies to deal with the pandemic and the following economic fallout?
+* On a holistic approach, which government designed the most effective public policies to deal with the pandemic?

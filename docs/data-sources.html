@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | Covid US Mexico</title>
-  <meta name="description" content="Chapter 2 Data sources | Covid US Mexico" />
+  <title>Chapter 2 Data sources | Covid impact: US vs Mexico</title>
+  <meta name="description" content="Chapter 2 Data sources | Covid impact: US vs Mexico" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | Covid US Mexico" />
+  <meta property="og:title" content="Chapter 2 Data sources | Covid impact: US vs Mexico" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | Covid US Mexico" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Covid impact: US vs Mexico" />
   
   
   
@@ -154,7 +154,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#financial-data"><i class="fa fa-check"></i><b>2.3</b> Financial data</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#health-variables"><i class="fa fa-check"></i><b>3.1</b> Health variables</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#economic-variables"><i class="fa fa-check"></i><b>3.2</b> Economic variables</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#financial-variables"><i class="fa fa-check"></i><b>3.3</b> Financial variables</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
@@ -164,14 +169,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#economic-and-financial-vertical"><i class="fa fa-check"></i><b>5.1.2</b> Economic and Financial Vertical</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#relation-between-public-health-and-economic-conditions-in-each-country"><i class="fa fa-check"></i><b>5.2</b> Relation between public health and economic conditions in each country</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-economy-better-policies"><i class="fa fa-check"></i><b>5.3</b> Which economy better policies?</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#which-government-designed-the-most-effective-public-policies-to-deal-with-the-pandemic"><i class="fa fa-check"></i><b>5.3</b> Which government designed the most effective public policies to deal with the pandemic?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#data-process"><i class="fa fa-check"></i><b>6.1</b> Data process</a></li>
 <li class="chapter" data-level="6.2" data-path="interactive-component.html"><a href="interactive-component.html#interactive-plot"><i class="fa fa-check"></i><b>6.2</b> Interactive plot</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#health-dimension"><i class="fa fa-check"></i><b>7.1</b> Health dimension</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#economic-and-financial-impact-and-recovery"><i class="fa fa-check"></i><b>7.2</b> Economic and financial impact and recovery</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -183,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Covid US Mexico</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Covid impact: US vs Mexico</a>
           </h1>
         </div>
 
@@ -195,13 +204,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>The data that we will use in the project can be categorized in three verticals:</p>
 <ul>
-<li><p><strong>Health data</strong>: Consisting of positive cases, deaths, vaccination and policy implementation.</p></li>
+<li><p><strong>Health data</strong>: Consisting of positive COVID cases, deaths due to COVID, vaccination and policy implementation.</p></li>
 <li><p><strong>Macroeconomic data</strong>: Consisting of economic growth by sector and the inflation rate.</p></li>
 <li><p><strong>Financial data</strong>: Consisting of market indices.</p></li>
 </ul>
 <div id="health-data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Health data</h2>
-<p>For this category of variables, team member Ulises Hernandez located a very well polished R package <a href="https://covid19datahub.io/">COVID19</a> of data related to the COVID-19 pandemic. This repository was was initiated by Emanuele Guidotti (University of Neuchâtel), leveraged by David Ardia (HEC Montréal), enhanced by the open source community, and is currently maintained by Emanuele Guidotti.</p>
+<p>For this category of variables, team member Ulises Hernandez located a very well polished R package <a href="https://covid19datahub.io/">COVID19</a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> of data related to the COVID-19 pandemic. This repository was initiated by Emanuele Guidotti (University of Neuchâtel), leveraged by David Ardia (HEC Montréal), enhanced by the open source community, and is currently maintained by Emanuele Guidotti.</p>
 <p>The initiative has aggregated data of many countries, but we restricted our use to only data corresponding to the US and Mexico. The variables in the data set can classified in three broad categories:</p>
 <div id="epidemiological-variables" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Epidemiological variables</h3>
@@ -222,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="policy-measures" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Policy measures</h3>
-<p>According to the documentation of the data hub, policy measures are provided by <a href="https://github.com/OxCGRT/covid-policy-tracker">Oxford Covid-19 Government Response Tracker</a>. As one can expect with this kind of data, policies not only vary by country, but even by region within given country. For this reason, the tracker uses flag variables to denote this limited scope of different measures. That is, the indicators have a flag for whether they are”targeted” to a specific geographical region (flag=0) or whether they are a “general” policy that is applied across the whole country/territory (flag=1). The compiled variables are the following:</p>
+<p>According to the documentation of the data hub, policy measures are provided by <a href="https://github.com/OxCGRT/covid-policy-tracker">Oxford Covid-19 Government Response Tracker</a>. As one can expect with this kind of data, policies not only vary by country, but even by region within given country. For this reason, the tracker uses flag variables to denote this limited scope of different measures. That is, the indicators have a flag for whether they are”targeted" to a specific geographical region (flag=0) or whether they are a “general” policy that is applied across the whole country/territory (flag=1). The compiled variables are the following:</p>
 <ul>
 <li><code>school_closing</code></li>
 <li><code>workplace_closing</code></li>
@@ -253,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>administrative_area_level_2</code>: Name of the administrative area of level 2.</li>
 <li><code>administrative_area_level_3</code>: Name of the administrative area of level 3.</li>
 </ul>
-<p>For a more detailed explanation of the variables just explained, the <a href="https://covid19datahub.io/articles/docs.html">documentation page</a> of the data hub is an excellent resource for people interested in using this data set.</p>
+<p>For a more detailed explanation of the variables just mentioned, the <a href="https://covid19datahub.io/articles/docs.html">documentation page</a> of the data hub is an excellent resource for people interested in using this data set.</p>
 </div>
 </div>
 <div id="macroeconomic-data" class="section level2" number="2.2">
@@ -261,14 +270,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="economic-growth" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Economic Growth</h3>
 <p>Team member Abel Perez consulted economic growth data for Mexico from <a href="https://www.inegi.org.mx/app/indicadores/?tm=0" class="uri">https://www.inegi.org.mx/app/indicadores/?tm=0</a> , in specific, he consulted the monthly approximation to GDP (which is quarterly) known as the Global Economic Activity Indicator (IGAE in spanish). These data also present information about the production in different economic activities know as primary, secondary and third activities. The data was preliminary cleaned in Excel sheets (deleting comments on top of the data) and processed as presented in Chapter 3.</p>
-<p>The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and thrid activities.</p>
+<p>The data spans from January 2019 to September 2021 (33 observations), and after cleansing it contains the annual percentage change on economic activity for total, primary, secondary and third activities.</p>
 <pre><code>## &#39;data.frame&#39;:    33 obs. of  5 variables:
 ##  $ Periodo    : int  201901 201902 201903 201904 201905 201906 201907 201908 201909 201910 ...
 ##  $ Total      : num  1.376 0.984 1.032 -1.554 -0.467 ...
 ##  $ Primarias  : num  -0.506 5.894 1.829 -1.581 -1.57 ...
 ##  $ Secundarias: num  -0.4008 -0.0918 -0.0231 -2.9824 -3.3431 ...
 ##  $ Terciarias : num  2.387 1.276 1.517 -0.855 0.995 ...</code></pre>
-<p>For the US, he consulted the monthly GDP from <a href="https://ihsmarkit.com/products/us-monthly-gdp-index.html" class="uri">https://ihsmarkit.com/products/us-monthly-gdp-index.html</a> . This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between mexico and the US. To tackle this problem, he consulted Mexico’s aggregation of economic activities from <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es</a> . he then consulted the proportion of contribution of sub-economic activities in the US from <a href="https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind" class="uri">https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind</a> and aggregated the activities based on the definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico’s definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).</p>
+<p>For the US, he consulted the monthly GDP from <a href="https://ihsmarkit.com/products/us-monthly-gdp-index.html" class="uri">https://ihsmarkit.com/products/us-monthly-gdp-index.html</a>. This data do not include detail on the production of primary, secondary and third activities. Furthermore the definition of such activities changes between Mexico and the US. To tackle this problem, he consulted Mexico’s aggregation of economic activities from <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es" class="uri">https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&amp;accion=consultarCuadro&amp;idCuadro=CR199&amp;locale=es</a>. He then consulted the proportion of contribution of sub-economic activities in the US from <a href="https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind" class="uri">https://apps.bea.gov/iTable/iTable.cfm?reqid=150&amp;step=2&amp;isuri=1&amp;categories=gdpxind</a> and aggregated the activities based on their definition in Mexico to compute weights for primary, secondary and third activities in the US based on Mexico’s definition. Finally, we simply multiplied such weights to the total GDP in the US to obtain the production for activities and then compute the annual percentage change (all this process is documented in the code of Chapter 3).</p>
 <p>The data for US spans from January 2019 to September 2021 (33 observations), and has the same variables as in Mexico’s data</p>
 <pre><code>## &#39;data.frame&#39;:    33 obs. of  5 variables:
 ##  $ OBS        : int  201901 201902 201903 201904 201905 201906 201907 201908 201909 201910 ...
@@ -312,10 +321,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Communication Services</li>
 </ol>
 <p>In the case of Mexico there was a natural limitation, which is that the size of the Mexican financial market is much smaller in terms of number of companies and market capitalization. As a reference, the Índice de Precios y Cotizaciones (IPC), the only Mexican stock index, is composed of around 35 publicly traded companies. We gathered data on this index, but were unable to obtained sectorized data because of this limitation.</p>
-<p>The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most</p>
+<p>The API we used downloaded these data as a data frame with 9,671 observations and 8 columns. The columns correspond to the following variables: symbol (ticker), date, open price of trading day , highest price of trading day , lowest price of trading day , closing price of trading, volume of trading, and finally and most importantly the adjusted price of the index, which is the price adjusted by corporate actions and is the relevant price we have to focus.</p>
 <p>Finally, for the purposes of making value comparison across countries, we downloaded data on the exchange rate between the Mexican Peso and the US dollar.</p>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.<a href="data-sources.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
