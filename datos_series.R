@@ -81,19 +81,19 @@ ggplot(aux3)+
 confirmed<-aux%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
   select(date,value)%>%
-  filter(!is.na(value),value>=0)
+  filter(!is.na(value),value>0)
 
 # deaths cases
 deaths<-aux2%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
   select(date,value)%>%
-  filter(!is.na(value),value>=0)
+  filter(!is.na(value),value>0)
 
 # vaccinated
 vaccinated<-aux3%>%
   mutate(value=Daily_Cases_MX/Daily_Cases_US)%>%
   select(date,value)%>%
-  filter(!is.na(value),value>=0)
+  filter(!is.na(value),value>0)
 
 ggplot(confirmed)+
   geom_line(aes(x=as.Date(date),y=value))
