@@ -18,17 +18,15 @@ inflation_mx <- read.csv("Data/COVID_mex.csv", stringsAsFactors = F)
 inflation_us <- read.csv("Data/COVID_usa.csv", stringsAsFactors = F)
 
 
-names(inflation_mx)
-c("date","confirmed","deaths", "recovered","tests","vaccines",
+names(inflation_mx)<-c("date","confirmed","deaths", "recovered","tests","vaccines",
   "peop_vacc","peop_f_vac","hosp","icu","vent","population",
   "school_close","workpl_close","cancel_events","gatherings_res",
   "transport_close","stay_home_r","int_move_rest",
   "internat_move_rest", "inf_camp", "test_policy","contact_trace",
-  "facial_cover", "vaccin_policy", "elderly_peop_protec", "gover_resp_index", 
-[28] "stringency_index"                   
-[29] "containment_health_index"           
-[30] "economic_support_index"
+  "facial_cover", "vaccin_policy", "elderly_peop_protec", "gover_resp_ind", "string_ind", "cont_health_ind","econ_supp_ind"
   )
+
+names(inflation_us)<-names(inflation_mx)
 
 visualize_missings(inflation_mx)
 visualize_missings(inflation_us)
