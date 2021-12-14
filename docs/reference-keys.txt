@@ -14,4 +14,6 @@ economic-and-financial-vertical
 relation-between-public-health-and-economic-conditions-in-each-country
 which-economy-better-policies
 interactive-component
+data-process
+interactive-plot
 conclusion

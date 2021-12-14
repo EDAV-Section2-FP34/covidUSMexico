@@ -1,7 +1,37 @@
 # Interactive component
 
+The interactive component developed for this project makes use of D3 version 7 and their code is available on the repository of the [project](https://github.com/EDAV-Section2-FP34/covidUSMexico/blob/main/docs/Interactive%20plot%20v5.html).
+
+This interactive time series plot shows the Index data created using health data from Mexico and United States in order to compare them. The data source is the same as discussed in previous sections with some processing describe below. The data used for this plot can be found here:
+
+1. [Confirmed cases](https://raw.githubusercontent.com/EDAV-Section2-FP34/covidUSMexico/main/Data/confirmed_index.csv)
+2. [Deaths](https://raw.githubusercontent.com/EDAV-Section2-FP34/covidUSMexico/main/Data/deaths_index.csv)
+3. [Full vaccinated people](https://raw.githubusercontent.com/EDAV-Section2-FP34/covidUSMexico/main/Data/vaccinated_index.csv)
 
 
+## Data process
+The data used for this plot is the health data from Mexico and United States. It is composed of daily observations from confirmed COVID19 cases, deaths and the number of fully vaccinated people. In order to compare both contries in these three variables, we create an index variable that is compute as follows:
 
-<iframe src="docs/Interactive plot v5.html" width="700" height="650"></iframe>
+$$
+Index_{i}=\frac{\text{data of Mexico}_{i}}{\text{data of USA}_{i}}
+$$
+
+for each variable $i\in \{Confirmed, Deaths, Fully vaccinated\}$.
+
+In this way, we are contrasting the observations of each country among the variables. So, for values greater than 1, we know that Mexico had higher values than USA and vice versa.
+
+## Interactive plot
+
+Using the data as described above, we can explore the insights of these Index variable with the interactive plor as follows.
+
+**Instructions:**
+The interactions in the graph  are the following:
+
+1. Zoom: you can make zoom using mouse by clicking and brushing the desired area to make zoom on. Double-click will return to the original graph.
+
+2. Display data: Hover the mouse over a point in the graph to display their data: Date and Index value
+
+3. Change dataset: Use the buttoms at the top to plot different data sets: Confirmed cases, Deaths and Full vaccinated people.
+
+<center><iframe src="docs/Interactive plot v5.html" width="500" height="500"></iframe></center>
 
