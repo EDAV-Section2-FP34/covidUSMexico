@@ -97,7 +97,7 @@ if(percent){
                  fill="a",
                  alpha=0.5))+
     scale_fill_manual(values="darkblue")+
-    theme(legend.position = "None",axis.text.x = element_text(angle = ang))+
+    theme(legend.position = "None",axis.text.x = element_blank())+
     xlab(NULL)+ ylab("% of rows missing")+
     ggtitle("Missing values pattern")
   
@@ -116,7 +116,7 @@ if(percent){
                  fill="a",
                  alpha=0.5))+
     scale_fill_manual(values="darkblue")+
-    theme(legend.position = "None",axis.text.x = element_text(angle = ang))+
+    theme(legend.position = "None",axis.text.x = element_blank())+
     xlab(NULL)+ ylab("# of rows missing")+
     ggtitle("Missing values pattern")
   
